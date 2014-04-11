@@ -16,8 +16,8 @@ WARNINGS := -Wall -Wno-unused -Wno-format
 DEFS     := -DMYDEF=1 -UMYDEF2
 EXTRA_CFLAGS := 
 
-INC_DIR   = include
-SRC_DIR   = src
+INC_DIR   = include include/spider
+SRC_DIR   = src src/spider
 OBJ_DIR   = bin/objects
 EXTRA_SRC = 
 EXCLUDE_FILES = 
