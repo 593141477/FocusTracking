@@ -1,8 +1,43 @@
-#include "SpiderFor163.h"
+#include "title.h"
+#include "tracker.h"
+#include "trackerForce.h"
+#include <iostream>
+#include <codecvt>
 
-int main(int argc, char const *argv[])
-{
-    SpiderFor163 spider;
-    spider.StartCrawling();
-    return 0;
+std::wstring_convert<std::codecvt_utf8<char32_t>,char32_t> cv;
+
+int main() {
+    freopen("../test/input.txt", "r", stdin);
+    freopen("../test/output.txt", "w", stdout);
+    tracker *mytracker = new trackerForce;
+    
+    std::vector<title> titleSet;
+    
+    std::u32string name;
+    std::string url, _name;
+    
+    while (std::cin >> _name >> url) {
+        name = cv.from_bytes(_name);
+        title tmp;
+        tmp.name = name;
+        tmp.url = url;
+        titleSet.push_back(tmp);
+    }
+    
+    for (std::vector<title>::iterator ii = titleSet.begin(); ii != titleSet.end(); ii++)
+        std::cout << cv.to_bytes(ii->name) << std::endl;
+    
+    
+    std::vector<titlebundle> bundle = mytracker->trackFocus(titleSet);
+    
+    for (std::vector<titlebundle>::iterator ii = bundle.begin(); ii != bundle.end();ii++) {
+        const std::vector<title> titles = ii->getTitles();
+        for (std::vector<title>::const_iterator jj = titles.cbegin(); jj != titles.cend(); jj++) {
+            std::cout << cv.to_bytes(jj->name) << std::endl;;
+        }
+        std::cout << "===================" << std::endl;
+    }
+    
+    delete mytracker;
+    mytracker = NULL;
 }

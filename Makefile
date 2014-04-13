@@ -17,8 +17,8 @@ DEFS     := -DMYDEF=1 -UMYDEF2
 EXTRA_CFLAGS := -std=c++11 -stdlib=libc++
 LDFLAGS  += -std=c++11 -stdlib=libc++ -L/usr/local/lib $(shell pkg-config --libs libcurl) -liconv $(shell pkg-config --libs gumbo)
 
-INC_DIR   = include include/spider
-SRC_DIR   = src src/spider
+INC_DIR   = include include/spider include/title include/tracker
+SRC_DIR   = src src/spider src/tracker
 OBJ_DIR   = bin/objects
 EXTRA_SRC = 
 EXCLUDE_FILES = 
