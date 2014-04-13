@@ -1,5 +1,8 @@
+#include "SpiderFor163.h"
+
 int main(int argc, char const *argv[])
 {
-	/* code */
-	return 0;
+    SpiderFor163 spider;
+    spider.StartCrawling();
+    return 0;
 }

@@ -4,17 +4,14 @@
 #include <vector>
 #include <string>
 
-class CrawlingResult
+typedef struct {
+    std::u32string title;
+    std::string  url;
+} CrawlingResultItem;
+
+class CrawlingResult : public std::vector<CrawlingResultItem>
 {
-public:
-	typedef struct
-	{
-		std::string title;
-	}ResultItem;
-	CrawlingResult();
-	~CrawlingResult();
-private:
-	std::vector<ResultItem> mList;
-	
+
+
 };
 #endif

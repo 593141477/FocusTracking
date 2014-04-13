@@ -14,7 +14,8 @@ CROSS_COMPILE =
 OPTIMIZE := -O2
 WARNINGS := -Wall -Wno-unused -Wno-format
 DEFS     := -DMYDEF=1 -UMYDEF2
-EXTRA_CFLAGS := 
+EXTRA_CFLAGS := -std=c++11 -stdlib=libc++
+LDFLAGS  += -std=c++11 -stdlib=libc++ -L/usr/local/lib $(shell pkg-config --libs libcurl) -liconv $(shell pkg-config --libs gumbo)
 
 INC_DIR   = include include/spider
 SRC_DIR   = src src/spider
@@ -58,8 +59,8 @@ prefix_objdir  = $(shell echo $(OBJ_DIR)|sed 's:\(\./*\)*::')
 prefix_objdir := $(filter-out /,$(prefix_objdir)/)
 endif
 
-GCC      := $(CROSS_COMPILE)gcc
-G++      := $(CROSS_COMPILE)g++
+GCC      := $(CROSS_COMPILE)clang
+G++      := $(CROSS_COMPILE)clang++
 SRC_DIR := $(sort . $(SRC_DIR))
 inc_dir = $(foreach d,$(sort $(INC_DIR) $(SRC_DIR)),-I$d)
 
