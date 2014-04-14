@@ -13,6 +13,7 @@ enum SpiderState_t{
 class SpiderBase
 {
     bool extractCharsetFromHeader(const char *field, std::string &outCharset) const;
+    bool extractCharsetFromMetaTag(const std::string &content, std::string &outCharset) const;
     std::pair<std::string,std::string> httpGet(std::string url) const;
     std::string charsetConv(std::string source, std::string charset) const;
 protected:

@@ -3,6 +3,7 @@
 #include <iconv.h>
 #include <string>
 #include <cctype>
+#include "PcreRegex.h"
 
 using std::string;
 using std::make_pair;
@@ -13,7 +14,7 @@ SpiderBase::SpiderBase()
 }
 SpiderBase::~SpiderBase()
 {
-
+    printf("==== %s\n", __func__);
 }
 
 RetType SpiderBase::StartCrawling()
@@ -92,11 +93,14 @@ std::pair<std::string, std::string> SpiderBase::httpGet(std::string url) const
     }
     /* ask for the content-type */
     code = curl_easy_getinfo(curl, CURLINFO_CONTENT_TYPE, &ct);
+    charset = "UTF-8";
     if ((CURLE_OK == code) && ct && extractCharsetFromHeader(ct, charset)) {
         printf("We received Content-Type: %s\n", ct);
     } else {
         fprintf(stderr, "Failed to get charset from Content-Type\n");
-        charset = "UTF-8";
+    }
+    if (extractCharsetFromMetaTag(content, charset)) {
+        fprintf(stderr, "Use charset definition in <meta> tag.\n");        
     }
     printf("Charset is: [%s]\n", charset.c_str());
     curl_easy_cleanup(curl);
@@ -116,6 +120,13 @@ bool SpiderBase::extractCharsetFromHeader(const char *field, std::string &outCha
     }
     outCharset = word;
     return true;
+}
+
+bool SpiderBase::extractCharsetFromMetaTag(const string &content, std::string &outCharset) const
+{
+    static PcreRegex re("<meta[^>]+charset=([\\-\\w]+)[^>]*>");
+
+    return re.MatchFirstSubstring(content.c_str(), content.size(), outCharset);
 }
 
 /*
@@ -147,6 +158,10 @@ string SpiderBase::charsetConv(string source, string charset) const
         perror("iconv_open");
         throw 1;
     }
+
+    const static int option_val = 1;
+    iconvctl(hdl, ICONV_SET_DISCARD_ILSEQ, (void*)&(option_val));
+
     string outbuf(out_size, 0);
     char *in_buf = (char *)source.c_str();
     char *out_buf = (char *)outbuf.c_str();
