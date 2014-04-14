@@ -2,6 +2,7 @@
 #include "tracker.h"
 #include "trackerForce.h"
 #include "SpiderFor163.h"
+#include "SpiderForQQ.h"
 #include <iostream>
 #include <codecvt>
 
@@ -13,6 +14,10 @@ int main() {
     spider->StartCrawling();
     delete spider;
     
+    spider = new SpiderForQQ;
+    spider->StartCrawling();
+    delete spider;
+
     freopen("../test/input.txt", "r", stdin);
     freopen("../test/output.txt", "w", stdout);
     tracker *mytracker = new trackerForce;
