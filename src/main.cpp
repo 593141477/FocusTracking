@@ -3,6 +3,7 @@
 #include "trackerForce.h"
 #include "SpiderFor163.h"
 #include "SpiderForQQ.h"
+#include "SpiderForSina.h"
 #include <iostream>
 #include <codecvt>
 
@@ -10,7 +11,13 @@ std::wstring_convert<std::codecvt_utf8<char32_t>,char32_t> cv;
 
 int main() {
 
-    SpiderBase *spider = new SpiderFor163;
+    SpiderBase *spider;
+
+    spider = new SpiderForSina;
+    spider->StartCrawling();
+    delete spider;
+
+    spider = new SpiderFor163;
     spider->StartCrawling();
     delete spider;
     
