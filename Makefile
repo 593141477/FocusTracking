@@ -16,6 +16,7 @@ WARNINGS := -Wall -Wno-unused -Wno-format
 DEFS     := -DMYDEF=1 -UMYDEF2
 EXTRA_CFLAGS := -std=c++11 -stdlib=libc++
 LDFLAGS  += -std=c++11 -stdlib=libc++ -L/usr/local/lib $(shell pkg-config --libs libcurl) -liconv $(shell pkg-config --libs gumbo)
+LDFLAGS  += $(shell pkg-config --cflags --libs libpcre)
 
 INC_DIR   = include include/spider include/title include/tracker
 SRC_DIR   = src src/spider src/tracker
