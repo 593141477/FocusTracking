@@ -1,12 +1,18 @@
 #include "title.h"
 #include "tracker.h"
 #include "trackerForce.h"
+#include "SpiderFor163.h"
 #include <iostream>
 #include <codecvt>
 
 std::wstring_convert<std::codecvt_utf8<char32_t>,char32_t> cv;
 
 int main() {
+
+    SpiderBase *spider = new SpiderFor163;
+    spider->StartCrawling();
+    delete spider;
+    
     freopen("../test/input.txt", "r", stdin);
     freopen("../test/output.txt", "w", stdout);
     tracker *mytracker = new trackerForce;

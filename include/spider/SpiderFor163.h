@@ -3,18 +3,13 @@
 
 #include "common.h"
 #include "CrawlingResult.h"
-#include "SpiderBase.h"
-#include "gumbo.h"
+#include "GumboBasedSpider.h"
 #include <vector>
 
-class SpiderFor163 : public SpiderBase
+class SpiderFor163 : public GumboBasedSpider
 {
-    const char* original;
-    std::vector<GumboNode*> links;
-    void searchForModClasses(GumboNode *node);
-    void searchForArticleLinks(GumboNode *node);
-    void filterLinks();
-    virtual void doCrawling();
-
+	void doCrawling();
+    bool searchNodeCallback(GumboNode *node, int &level);
+    bool convertingCallback(GumboNode* node, CrawlingResultItem &out);
 };
 #endif

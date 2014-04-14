@@ -22,7 +22,7 @@ protected:
     std::string downloadWebPage(std::string url) const;
 public:
     SpiderBase();
-    ~SpiderBase();
+    virtual ~SpiderBase();
     RetType StartCrawling();
     RetType StopCrawling();
     bool IsCrawlingResultAvailable();
