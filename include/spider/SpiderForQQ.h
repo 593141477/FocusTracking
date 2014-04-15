@@ -8,6 +8,7 @@
 
 class SpiderForQQ : public GumboBasedSpider
 {
+	std::string host_url;
 	void doCrawling();
     bool searchNodeCallback(GumboNode *node, int &level);
     bool convertingCallback(GumboNode* node, CrawlingResultItem &out);

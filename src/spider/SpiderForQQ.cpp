@@ -8,7 +8,9 @@ using std::cout;
 
 void SpiderForQQ::doCrawling()
 {
-    string content = downloadWebPage("http://news.qq.com/china_index.shtml");
+    host_url = "http://news.qq.com";
+
+    string content = downloadWebPage(host_url + "/china_index.shtml");
     parsePage(content);
 
     for (std::vector<CrawlingResultItem>::iterator i = result.begin(); i != result.end(); ++i) {
@@ -37,5 +39,7 @@ bool SpiderForQQ::convertingCallback(GumboNode* node, CrawlingResultItem &out)
     string title = childrenToText(node);
     out.title = Utility::utf8string_to_u32(title.c_str());
     out.url = gumbo_get_attribute(&node->v.element.attributes, "href")->value;
+    if(out.url.size() && out.url[0] == '/')
+        out.url = host_url + out.url;
     return true;
 }
