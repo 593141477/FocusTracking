@@ -10,11 +10,6 @@ void SpiderFor163::doCrawling()
 {
     string content = downloadWebPage("http://news.163.com/");
     parsePage(content);
-    
-    for (std::vector<CrawlingResultItem>::iterator i = result.begin(); i != result.end(); ++i) {
-        std::cout << i->url << endl;
-        std::cout << Utility::u32string_to_utf8( i->title) << endl << endl;
-    }
 }
 bool SpiderFor163::searchNodeCallback(GumboNode *node, int &level)
 {

@@ -12,11 +12,6 @@ void SpiderForQQ::doCrawling()
 
     string content = downloadWebPage(host_url + "/china_index.shtml");
     parsePage(content);
-
-    for (std::vector<CrawlingResultItem>::iterator i = result.begin(); i != result.end(); ++i) {
-        std::cout << i->url << endl;
-        std::cout << Utility::u32string_to_utf8( i->title) << endl << endl;
-    }
 }
 bool SpiderForQQ::searchNodeCallback(GumboNode *node, int &level)
 {

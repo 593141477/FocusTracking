@@ -14,12 +14,16 @@ SpiderBase::SpiderBase()
 }
 SpiderBase::~SpiderBase()
 {
-    printf("==== %s\n", __func__);
 }
 
 RetType SpiderBase::StartCrawling()
 {
-    doCrawling();
+    try{
+        doCrawling();
+        state = SPIDER_HAS_DATA;
+    }catch(...){
+        fprintf(stderr, "Exception occurred in %s\n", __func__);
+    }
     return RET_OK;
 }
 RetType SpiderBase::StopCrawling()
@@ -65,7 +69,7 @@ std::pair<std::string, std::string> SpiderBase::httpGet(std::string url) const
         fprintf(stderr, "Failed to set error buffer [%d]\n", code );
         throw 1;
     }
-    curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+    // curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
     code = curl_easy_setopt(curl, CURLOPT_URL, URL);
     if (code != CURLE_OK) {
         fprintf(stderr, "Failed to set URL [%s]\n", error);

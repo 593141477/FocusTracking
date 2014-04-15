@@ -4,18 +4,11 @@
 #include <iostream>
 using std::string;
 using std::u32string;
-using std::endl;
-using std::cout;
 
 void SpiderForSina::doCrawling()
 {
     string content = downloadWebPage("http://news.sina.com.cn/");
     parsePage(content);
-
-    for (std::vector<CrawlingResultItem>::iterator i = result.begin(); i != result.end(); ++i) {
-        std::cout << i->url << endl;
-        std::cout << Utility::u32string_to_utf8( i->title) << endl << endl;
-    }
 }
 bool SpiderForSina::searchNodeCallback(GumboNode *node, int &level)
 {
