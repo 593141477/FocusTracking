@@ -15,10 +15,12 @@ OPTIMIZE := -O2
 WARNINGS := -Wall -Wno-unused -Wno-format
 DEFS     := -DMYDEF=1 -UMYDEF2
 EXTRA_CFLAGS := -std=c++11 -stdlib=libc++
-LDFLAGS  += -std=c++11 -stdlib=libc++ -L/usr/local/lib $(shell pkg-config --libs libcurl) -liconv $(shell pkg-config --libs gumbo)
+LDFLAGS  += -std=c++11 -stdlib=libc++ -L/usr/local/lib $(shell pkg-config --libs libcurl) -liconv
 LDFLAGS  += $(shell pkg-config --cflags --libs libpcre)
+LDFLAGS  += -L3rdparty/gumbo-parser/.libs -lgumbo
 
 INC_DIR   = include include/spider include/title include/tracker
+INC_DIR   += 3rdparty/gumbo-parser/src
 SRC_DIR   = src src/spider src/tracker
 OBJ_DIR   = bin/objects
 EXTRA_SRC = 
@@ -88,7 +90,15 @@ endif
 
 PHONY = all .mkdir clean
 
-all: .mkdir $(TARGET)
+all: .mkdir 3rdparty $(TARGET)
+
+3rdparty: gumbo-parser
+
+gumbo-parser: 3rdparty/gumbo-parser/.libs/libgumbo.a
+
+3rdparty/gumbo-parser/.libs/libgumbo.a:
+	cd 3rdparty/gumbo-parser && ./configure --enable-static --disable-shared
+	make -C 3rdparty/gumbo-parser
 
 define cmd_o
 $$(obj-$1): $2%.o: %.$1  $(MAKEFILE_LIST)

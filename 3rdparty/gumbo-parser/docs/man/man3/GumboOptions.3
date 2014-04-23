@@ -1,0 +1,53 @@
+.TH "GumboOptions" 3 "Sat Apr 12 2014" "Version {{VERSION}}" "Gumbo" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GumboOptions \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <gumbo\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBGumboAllocatorFunction\fP \fBallocator\fP"
+.br
+.ti -1c
+.RI "\fBGumboDeallocatorFunction\fP \fBdeallocator\fP"
+.br
+.ti -1c
+.RI "void * \fBuserdata\fP"
+.br
+.ti -1c
+.RI "int \fBtab_stop\fP"
+.br
+.ti -1c
+.RI "bool \fBstop_on_first_error\fP"
+.br
+.ti -1c
+.RI "int \fBmax_errors\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Input struct containing configuration options for the parser\&. These let you specify alternate memory managers, provide different error handling, etc\&. Use kGumboDefaultOptions for sensible defaults, and only set what you need\&. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBGumboAllocatorFunction\fP GumboOptions::allocator"
+A memory allocator function\&. Default: malloc\&. 
+.SS "\fBGumboDeallocatorFunction\fP GumboOptions::deallocator"
+A memory deallocator function\&. Default: free\&. 
+.SS "void* GumboOptions::userdata"
+An opaque object that's passed in as the first argument to all callbacks used by this library\&. Default: NULL\&. 
+.SS "int GumboOptions::tab_stop"
+The tab-stop size, for computing positions in source code that uses tabs\&. Default: 8\&. 
+.SS "bool GumboOptions::stop_on_first_error"
+Whether or not to stop parsing when the first error is encountered\&. Default: false\&. 
+.SS "int GumboOptions::max_errors"
+The maximum number of errors before the parser stops recording them\&. This is provided so that if the page is totally borked, we don't completely fill up the errors vector and exhaust memory with useless redundant errors\&. Set to -1 to disable the limit\&. Default: -1 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Gumbo from the source code\&.

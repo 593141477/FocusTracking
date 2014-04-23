@@ -1,0 +1,63 @@
+.TH "GumboElement" 3 "Sat Apr 12 2014" "Version {{VERSION}}" "Gumbo" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GumboElement \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <gumbo\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBGumboVector\fP \fBchildren\fP"
+.br
+.ti -1c
+.RI "\fBGumboTag\fP \fBtag\fP"
+.br
+.ti -1c
+.RI "\fBGumboNamespaceEnum\fP \fBtag_namespace\fP"
+.br
+.ti -1c
+.RI "\fBGumboStringPiece\fP \fBoriginal_tag\fP"
+.br
+.ti -1c
+.RI "\fBGumboStringPiece\fP \fBoriginal_end_tag\fP"
+.br
+.ti -1c
+.RI "\fBGumboSourcePosition\fP \fBstart_pos\fP"
+.br
+.ti -1c
+.RI "\fBGumboSourcePosition\fP \fBend_pos\fP"
+.br
+.ti -1c
+.RI "\fBGumboVector\fP \fBattributes\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The struct used to represent all HTML elements\&. This contains information about the tag, attributes, and child nodes\&. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBGumboVector\fP GumboElement::children"
+An array of GumboNodes, containing the children of this element\&. Pointers are owned\&. 
+.SS "\fBGumboTag\fP GumboElement::tag"
+The GumboTag enum for this element\&. 
+.SS "\fBGumboNamespaceEnum\fP GumboElement::tag_namespace"
+The GumboNamespaceEnum for this element\&. 
+.SS "\fBGumboStringPiece\fP GumboElement::original_tag"
+A \fBGumboStringPiece\fP pointing to the original tag text for this element, pointing directly into the source buffer\&. If the tag was inserted algorithmically (for example, <head> or <tbody> insertion), this will be a zero-length string\&. 
+.SS "\fBGumboStringPiece\fP GumboElement::original_end_tag"
+A \fBGumboStringPiece\fP pointing to the original end tag text for this element\&. If the end tag was inserted algorithmically, (for example, closing a self-closing tag), this will be a zero-length string\&. 
+.SS "\fBGumboSourcePosition\fP GumboElement::start_pos"
+The source position for the start of the start tag\&. 
+.SS "\fBGumboSourcePosition\fP GumboElement::end_pos"
+The source position for the start of the end tag\&. 
+.SS "\fBGumboVector\fP GumboElement::attributes"
+An array of GumboAttributes, containing the attributes for this tag in the order that they were parsed\&. Pointers are owned\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Gumbo from the source code\&.
