@@ -52,12 +52,15 @@ void GumboBasedSpider::convertResult()
 
 std::string GumboBasedSpider::childrenToText(GumboNode *node)const
 {
-    const GumboElement &element = node->v.element;
-    if (!element.children.length)
-        return string();
-    const GumboNode *ch = static_cast<const GumboNode *>(element.children.data[0]);
-    if (ch->type == GUMBO_NODE_TEXT)
-        return ch->v.text.text;
-    else
-        return string(original + ch->v.element.start_pos.offset, element.end_pos.offset - ch->v.element.start_pos.offset);
+    if (node->type != GUMBO_NODE_ELEMENT) {
+        return (node->type == GUMBO_NODE_TEXT) ? node->v.text.text : string();
+    }
+
+    string txt;
+    GumboVector *children = &node->v.element.children;
+    for (int i = 0; i < children->length; ++i) {
+        txt += childrenToText(static_cast<GumboNode *>(children->data[i]));
+    }
+
+    return txt;
 }
