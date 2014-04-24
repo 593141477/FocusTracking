@@ -4,6 +4,7 @@
 #include "SpiderFor163.h"
 #include "SpiderForQQ.h"
 #include "SpiderForSina.h"
+#include "SqliteDatabaseStorage.h"
 #include <iostream>
 #include <codecvt>
 
@@ -13,12 +14,14 @@ void appendTitleSet(std::vector<title> &s, const CrawlingResult &res)
 {
     for(auto &x : res){
         title tmp;
-        tmp.name = x.title;
+        tmp.name = Utility::utf8string_to_u32(x.title.c_str());
         tmp.url = x.url;
         s.push_back(tmp);
     }
 }
 int main() {
+    SqliteDatabaseStorage *storage;
+    storage = new SqliteDatabaseStorage("crawling");
 
     std::vector<title> titleSet;
     SpiderBase *spider;
@@ -26,17 +29,22 @@ int main() {
     spider = new SpiderForSina;
     spider->StartCrawling();
     appendTitleSet(titleSet, spider->GetCrawlingResult());
+    storage->InsertCrawlingResult("sina", spider->GetCrawlingResult());
     delete spider;
 
     spider = new SpiderFor163;
     spider->StartCrawling();
     appendTitleSet(titleSet, spider->GetCrawlingResult());
+    storage->InsertCrawlingResult("163", spider->GetCrawlingResult());
     delete spider;
     
     spider = new SpiderForQQ;
     spider->StartCrawling();
     appendTitleSet(titleSet, spider->GetCrawlingResult());
+    storage->InsertCrawlingResult("qq", spider->GetCrawlingResult());
     delete spider;
+
+    delete storage;
 
     tracker *mytracker = new trackerForce;
     

@@ -16,11 +16,6 @@ void GumboBasedSpider::parsePage(const std::string &content)
     convertResult();
     gumbo_destroy_output(&kGumboDefaultOptions, output);
     original = NULL;
-    
-    for (std::vector<CrawlingResultItem>::iterator i = result.begin(); i != result.end(); ++i) {
-        std::cout << i->url << endl;
-        std::cout << Utility::u32string_to_utf8( i->title) << endl << endl;
-    }
 }
 
 void GumboBasedSpider::searchNode(GumboNode *node, int level)

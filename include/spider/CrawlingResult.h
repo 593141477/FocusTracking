@@ -3,10 +3,12 @@
 
 #include <vector>
 #include <string>
+#include <ctime>
 
 typedef struct {
-    std::u32string title;
+    std::string  title;
     std::string  url;
+    std::time_t  date;
 } CrawlingResultItem;
 
 class CrawlingResult : public std::vector<CrawlingResultItem>

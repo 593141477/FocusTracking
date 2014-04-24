@@ -35,7 +35,7 @@ bool SpiderForSina::convertingCallback(GumboNode* node, CrawlingResultItem &out)
     string title = childrenToText(node);
     u32string tmp = Utility::utf8string_to_u32(title.c_str());
     if(tmp.length() > 5){
-        out.title = tmp;
+        out.title = title;
         out.url = gumbo_get_attribute(&node->v.element.attributes, "href")->value;
         return true;
     }
