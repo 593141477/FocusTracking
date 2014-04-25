@@ -1,13 +1,18 @@
 #include "trackerForce.h"
-
 #include <set>
+#include <cmath>
 
 trackerForce::trackerForce() {
+    //limit = 1.0 - (std::sqrt(5.0) - 1.0) / 2.0;
     limit = 0.2;
 }
 
 trackerForce::~trackerForce() {
     
+}
+
+bool trackerForce::isCJK(char32_t ch) {
+    return 0x4E00 <= (int)ch && (int)ch < 0xA000;
 }
 
 bool trackerForce::titlebundleCmp(const titlebundle &a, const titlebundle &b) {
@@ -18,39 +23,40 @@ double trackerForce::evaluate(const titlebundle& bundle, const title &tt) {
     std::u32string name = tt.name;
     std::set<char32_t> charset;
     for (int i = 0; i < name.size(); i++)
-        charset.insert(tt.name[i]);
+        if (isCJK(name[i]))
+            charset.insert(tt.name[i]);
 
     const std::vector<title> titles = bundle.getTitles();
-    int totalLength = 0, intersection = 0;
+    double totalScore = 0;
     for (std::vector<title>::const_iterator ii = titles.cbegin(); ii != titles.cend(); ii++) {
-        totalLength += ii->name.size();
-        for (int i = 0; i < ii->name.size(); i++) 
+        int matchChar = 0, length = 0;
+        for (int i = 0; i < ii->name.size(); i++) {
+            if (isCJK(ii->name[i]))
+                length++;
+            else
+                continue;
             if (charset.find(ii->name[i]) != charset.end())
-                intersection++;
+                matchChar++;
+        }
+        totalScore += (double)matchChar / (double)ii->name.size();
     } 
-    return (double)intersection / (double)totalLength;
+    return totalScore / titles.size();
 }
 
 std::vector<titlebundle> trackerForce::trackFocus(const std::vector<title> &titles) {
     std::vector<titlebundle> ret;
     for (std::vector<title>::const_iterator ii = titles.cbegin(); ii != titles.cend(); ii++) {
-        int best = -1;
-        double bestValue = -1;
-        
-        for (std::vector<titlebundle>::iterator jj = ret.begin(); jj != ret.end(); jj++) {
-            double nowValue = evaluate(*jj, *ii);
-            if (nowValue > bestValue) {
-                bestValue = nowValue;
-                best = jj - ret.begin();
+        bool flag = 0;
+        for (std::vector<titlebundle>::iterator jj = ret.begin(); jj != ret.end(); jj++)
+            if (evaluate(*jj, *ii) > limit) {
+                jj->addTitle(*ii);
+                flag = 1;
             }
-        }
 
-        if (best == -1 || bestValue < limit) {
+        if (!flag) {
             titlebundle newbundle;
             newbundle.addTitle(*ii);
             ret.push_back(newbundle);
-        } else {
-            ret[best].addTitle(*ii);
         }
     }
     sort(ret.begin(), ret.end(), titlebundleCmp);

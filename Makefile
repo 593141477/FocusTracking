@@ -20,7 +20,7 @@ LDFLAGS  += $(shell pkg-config --cflags --libs libpcre)
 LDFLAGS  += -lsqlite3
 LDFLAGS  += -L3rdparty/gumbo-parser/.libs -lgumbo
 
-INC_DIR   = include include/spider include/title include/tracker include/storage
+INC_DIR   = include include/spider include/tracker include/storage
 INC_DIR   += 3rdparty/gumbo-parser/src
 SRC_DIR   = src src/spider src/tracker src/storage
 OBJ_DIR   = bin/objects
@@ -98,7 +98,7 @@ all: .mkdir 3rdparty $(TARGET)
 gumbo-parser: 3rdparty/gumbo-parser/.libs/libgumbo.a
 
 3rdparty/gumbo-parser/.libs/libgumbo.a:
-	cd 3rdparty/gumbo-parser && ./configure --enable-static --disable-shared
+	cd 3rdparty/gumbo-parser && ./autogen.sh && ./configure --enable-static --disable-shared
 	make -C 3rdparty/gumbo-parser
 
 define cmd_o

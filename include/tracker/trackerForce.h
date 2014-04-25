@@ -9,6 +9,7 @@ public:
     trackerForce();
     ~trackerForce();
     trackerForce(double);
+    bool isCJK(char32_t);
     static bool titlebundleCmp(const titlebundle&, const titlebundle&);
     double evaluate(const titlebundle&, const title&);
     virtual std::vector<titlebundle> trackFocus(const std::vector<title>&);
