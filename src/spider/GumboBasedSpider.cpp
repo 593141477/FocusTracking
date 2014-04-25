@@ -2,6 +2,7 @@
 #include "common.h"
 #include <string>
 #include <iostream>
+#include <ctime>
 using std::string;
 using std::endl;
 using std::cout;
@@ -39,6 +40,7 @@ void GumboBasedSpider::convertResult()
     std::vector<GumboNode *>::iterator it;
     for (it = storedNodes.begin(); it != storedNodes.end(); ++it) {
         CrawlingResultItem item;
+        item.date = time(0);
         if (convertingCallback(*it, item)) {
             result.push_back(item);
         }

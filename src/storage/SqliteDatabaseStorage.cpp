@@ -22,21 +22,24 @@ SqliteDatabaseStorage::~SqliteDatabaseStorage()
 
 bool SqliteDatabaseStorage::InsertCrawlingResult(string site_name, const CrawlingResult &result)
 {
+	const char *site = site_name.c_str();
 	for(auto &item : result){
 		sqlite3_stmt *stmt;
 		int ret;
 
 		if(SQLITE_OK != sqlite3_prepare_v2(db,
-			"INSERT INTO CrawlingResult(title,url,date) VALUES(?,?,?)", -1, &stmt, NULL) || !stmt) {
+			"INSERT INTO CrawlingResult(site,title,url,date) VALUES(?,?,?,?)", -1, &stmt, NULL) || !stmt) {
 
 			fprintf(stderr, "sqlite3_prepare_v2 failed\n");
 			return false;
 		}
-		if(SQLITE_OK != sqlite3_bind_text(stmt, 1, item.title.c_str(), -1, SQLITE_STATIC) ||
-			SQLITE_OK != sqlite3_bind_text(stmt, 2, item.url.c_str(), -1, SQLITE_STATIC) ||
-			SQLITE_OK != sqlite3_bind_int64(stmt, 3, item.date) ) {
+		if(SQLITE_OK != sqlite3_bind_text(stmt, 1, site, -1, SQLITE_STATIC) ||
+			SQLITE_OK != sqlite3_bind_text(stmt, 2, item.title.c_str(), -1, SQLITE_STATIC) ||
+			SQLITE_OK != sqlite3_bind_text(stmt, 3, item.url.c_str(), -1, SQLITE_STATIC) ||
+			SQLITE_OK != sqlite3_bind_int64(stmt, 4, item.date) ) {
 
 			fprintf(stderr, "sqlite3_bind_* failed\n");
+			sqlite3_finalize(stmt);
 			return false;
 		}
 
