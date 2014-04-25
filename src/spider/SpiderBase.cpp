@@ -75,6 +75,11 @@ std::pair<std::string, std::string> SpiderBase::httpGet(std::string url) const
         fprintf(stderr, "Failed to set URL [%s]\n", error);
         throw 1;
     }
+    code = curl_easy_setopt(curl, CURLOPT_REFERER, URL);
+    if (code != CURLE_OK) {
+        fprintf(stderr, "Failed to set refer page [%s]\n", error);
+        throw 1;
+    }
     code = curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
     if (code != CURLE_OK) {
         fprintf(stderr, "Failed to set redirect option [%s]\n", error );
@@ -152,7 +157,7 @@ static int print_one (unsigned int namescount, const char *const *names,
 string SpiderBase::charsetConv(string source, string charset) const
 {
     size_t in_size = source.size();
-    size_t out_size = in_size * 2;
+    size_t out_size = in_size * 3;
     size_t ret;
 
     // iconvlist(print_one, NULL);
@@ -166,7 +171,8 @@ string SpiderBase::charsetConv(string source, string charset) const
     const static int option_val = 1;
     iconvctl(hdl, ICONV_SET_DISCARD_ILSEQ, (void*)&(option_val));
 
-    string outbuf(out_size, 0);
+    string outbuf;
+    outbuf.resize(out_size);
     char *in_buf = (char *)source.c_str();
     char *out_buf = (char *)outbuf.c_str();
 
