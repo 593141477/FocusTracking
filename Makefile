@@ -17,11 +17,12 @@ DEFS     := -DMYDEF=1 -UMYDEF2
 EXTRA_CFLAGS := -std=c++11 -stdlib=libc++
 LDFLAGS  += -std=c++11 -stdlib=libc++ -L/usr/local/lib $(shell pkg-config --libs libcurl) -liconv
 LDFLAGS  += $(shell pkg-config --cflags --libs libpcre)
+LDFLAGS  += -lsqlite3
 LDFLAGS  += -L3rdparty/gumbo-parser/.libs -lgumbo
 
-INC_DIR   = include include/spider include/tracker
+INC_DIR   = include include/spider include/tracker include/storage
 INC_DIR   += 3rdparty/gumbo-parser/src
-SRC_DIR   = src src/spider src/tracker
+SRC_DIR   = src src/spider src/tracker src/storage
 OBJ_DIR   = bin/objects
 EXTRA_SRC = 
 EXCLUDE_FILES = 

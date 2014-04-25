@@ -2,6 +2,7 @@
 #include "common.h"
 #include <string>
 #include <iostream>
+#include <ctime>
 using std::string;
 using std::endl;
 using std::cout;
@@ -16,11 +17,6 @@ void GumboBasedSpider::parsePage(const std::string &content)
     convertResult();
     gumbo_destroy_output(&kGumboDefaultOptions, output);
     original = NULL;
-    
-    for (std::vector<CrawlingResultItem>::iterator i = result.begin(); i != result.end(); ++i) {
-        std::cout << i->url << endl;
-        std::cout << Utility::u32string_to_utf8( i->title) << endl << endl;
-    }
 }
 
 void GumboBasedSpider::searchNode(GumboNode *node, int level)
@@ -44,6 +40,7 @@ void GumboBasedSpider::convertResult()
     std::vector<GumboNode *>::iterator it;
     for (it = storedNodes.begin(); it != storedNodes.end(); ++it) {
         CrawlingResultItem item;
+        item.date = time(0);
         if (convertingCallback(*it, item)) {
             result.push_back(item);
         }

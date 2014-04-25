@@ -32,7 +32,7 @@ bool SpiderForQQ::searchNodeCallback(GumboNode *node, int &level)
 bool SpiderForQQ::convertingCallback(GumboNode* node, CrawlingResultItem &out)
 {
     string title = childrenToText(node);
-    out.title = Utility::utf8string_to_u32(title.c_str());
+    out.title = title;
     out.url = gumbo_get_attribute(&node->v.element.attributes, "href")->value;
     if(out.url.size() && out.url[0] == '/')
         out.url = host_url + out.url;
