@@ -27,3 +27,32 @@ private:
 };
 
 #endif
+/*
+ //usage sample
+#include "segment.h"
+#include <codecvt>
+#include <string>
+#include <locale>
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+wstring_convert<codecvt_utf8<char32_t>,char32_t> converter;
+
+int main() {
+    ifstream model;
+    model.open("segmentModel.txt");
+    segment segmentor(model);
+    model.close();
+    
+    string s;
+    u32string s32;
+    while (getline(cin, s)) {
+        s32 = converter.from_bytes(s);
+        vector<u32string> seg = segmentor.getSegment(s32);
+        for (auto ii = seg.begin(); ii != seg.end(); ii++)
+            cout << converter.to_bytes(*ii) << endl;
+        cout << "============" << endl;
+    }
+}
+*/
