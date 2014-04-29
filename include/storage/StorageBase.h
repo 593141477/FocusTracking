@@ -10,7 +10,7 @@ class StorageBase
 	std::string storageName;
 public:
 	StorageBase(std::string _storage):storageName(_storage){}
-	
+	virtual ~StorageBase(){}
 	const char * GetStroageName(){
 		return storageName.c_str();
 	}
