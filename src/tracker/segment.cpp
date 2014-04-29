@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 
-segment::segment(std::ifstream &model) {
+void segment::init(std::ifstream &model) {
     std::string line;
     while (getline(model, line)) {
         std::istringstream tokenizer(line);
