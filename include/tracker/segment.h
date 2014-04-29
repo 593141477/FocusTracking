@@ -10,7 +10,7 @@
 
 class segment {
 public:
-    segment(std::ifstream&);
+    void init(std::ifstream&);
     std::vector<std::u32string> getSegment(const std::u32string&);
 private:
     std::wstring_convert<std::codecvt_utf8<char32_t>,char32_t> converter;
@@ -42,7 +42,8 @@ wstring_convert<codecvt_utf8<char32_t>,char32_t> converter;
 int main() {
     ifstream model;
     model.open("segmentModel.txt");
-    segment segmentor(model);
+    segment segmentor;
+    segmentor.init(model);
     model.close();
     
     string s;
