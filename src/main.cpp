@@ -1,6 +1,7 @@
 #include "title.h"
 #include "tracker.h"
 #include "trackerForce.h"
+#include "trackerCluster.h"
 #include "SpiderFor163.h"
 #include "SpiderForQQ.h"
 #include "SpiderForSina.h"
@@ -46,7 +47,7 @@ int main() {
 
     delete storage;
 
-    tracker *mytracker = new trackerForce;
+    tracker *mytracker = new trackerCluster;
     
     std::cout << "\n********************\n";
     
