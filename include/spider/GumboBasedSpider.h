@@ -8,13 +8,12 @@
 #include <vector>
 #include <string>
 
-class GumboBasedSpider : public SpiderBase
+class GumboBasedSpider
 {
 protected:
     const char* original;
     std::vector<GumboNode*> storedNodes;
-    
-    virtual void doCrawling() = 0;
+
     void parsePage(const std::string &content);
 
     std::string childrenToText(GumboNode* node) const;
@@ -24,6 +23,6 @@ private:
     void convertResult();
 protected:
     virtual bool searchNodeCallback(GumboNode *node, int &level) = 0;
-    virtual bool convertingCallback(GumboNode* node, CrawlingResultItem &out) = 0;
+    virtual void resultCallback(GumboNode *node) = 0;
 };
 #endif

@@ -12,7 +12,6 @@ void GumboBasedSpider::parsePage(const std::string &content)
     original = content.c_str();
     GumboOutput *output = gumbo_parse(original);
     storedNodes.clear();
-    result.clear();
     searchNode(output->root, 0);
     convertResult();
     gumbo_destroy_output(&kGumboDefaultOptions, output);
@@ -39,11 +38,7 @@ void GumboBasedSpider::convertResult()
 {
     std::vector<GumboNode *>::iterator it;
     for (it = storedNodes.begin(); it != storedNodes.end(); ++it) {
-        CrawlingResultItem item;
-        item.date = time(0);
-        if (convertingCallback(*it, item)) {
-            result.push_back(item);
-        }
+        resultCallback(*it);
     }
 }
 

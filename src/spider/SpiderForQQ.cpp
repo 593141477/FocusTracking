@@ -11,6 +11,7 @@ void SpiderForQQ::doCrawling()
     host_url = "http://news.qq.com";
 
     string content = downloadWebPage(host_url + "/china_index.shtml");
+    result.clear();
     parsePage(content);
 }
 bool SpiderForQQ::searchNodeCallback(GumboNode *node, int &level)
@@ -29,12 +30,14 @@ bool SpiderForQQ::searchNodeCallback(GumboNode *node, int &level)
     }
     return true;
 }
-bool SpiderForQQ::convertingCallback(GumboNode* node, CrawlingResultItem &out)
+void SpiderForQQ::resultCallback(GumboNode *node)
 {
+    CrawlingResultItem out;
     string title = childrenToText(node);
     out.title = title;
     out.url = gumbo_get_attribute(&node->v.element.attributes, "href")->value;
+    out.date = time(0);
     if(out.url.size() && out.url[0] == '/')
         out.url = host_url + out.url;
-    return true;
+    result.push_back(out);
 }

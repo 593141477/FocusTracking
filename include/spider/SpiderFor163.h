@@ -6,10 +6,10 @@
 #include "GumboBasedSpider.h"
 #include <vector>
 
-class SpiderFor163 : public GumboBasedSpider
+class SpiderFor163 : public GumboBasedSpider,public SpiderBase
 {
 	void doCrawling();
     bool searchNodeCallback(GumboNode *node, int &level);
-    bool convertingCallback(GumboNode* node, CrawlingResultItem &out);
+    void resultCallback(GumboNode *node);
 };
 #endif

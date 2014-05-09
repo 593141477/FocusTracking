@@ -8,6 +8,7 @@ using std::u32string;
 void SpiderForSina::doCrawling()
 {
     string content = downloadWebPage("http://news.sina.com.cn/");
+    result.clear();
     parsePage(content);
 }
 bool SpiderForSina::searchNodeCallback(GumboNode *node, int &level)
@@ -30,14 +31,15 @@ bool SpiderForSina::searchNodeCallback(GumboNode *node, int &level)
     }
     return true;
 }
-bool SpiderForSina::convertingCallback(GumboNode* node, CrawlingResultItem &out)
+void SpiderForSina::resultCallback(GumboNode *node)
 {
+    CrawlingResultItem out;
     string title = childrenToText(node);
     u32string tmp = Utility::utf8string_to_u32(title.c_str());
     if(tmp.length() > 5){
         out.title = title;
         out.url = gumbo_get_attribute(&node->v.element.attributes, "href")->value;
-        return true;
+        out.date = time(0);
+        result.push_back(out);
     }
-    return false;
 }

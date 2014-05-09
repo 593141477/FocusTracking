@@ -6,11 +6,11 @@
 #include "GumboBasedSpider.h"
 #include <vector>
 
-class SpiderForQQ : public GumboBasedSpider
+class SpiderForQQ : public GumboBasedSpider,public SpiderBase
 {
 	std::string host_url;
 	void doCrawling();
     bool searchNodeCallback(GumboNode *node, int &level);
-    bool convertingCallback(GumboNode* node, CrawlingResultItem &out);
+    void resultCallback(GumboNode *node);
 };
 #endif

@@ -9,6 +9,7 @@ using std::cout;
 void SpiderFor163::doCrawling()
 {
     string content = downloadWebPage("http://news.163.com/");
+    result.clear();
     parsePage(content);
 }
 bool SpiderFor163::searchNodeCallback(GumboNode *node, int &level)
@@ -41,13 +42,14 @@ bool SpiderFor163::searchNodeCallback(GumboNode *node, int &level)
     }
     return true;
 }
-bool SpiderFor163::convertingCallback(GumboNode* node, CrawlingResultItem &out)
+void SpiderFor163::resultCallback(GumboNode *node)
 {
+    CrawlingResultItem out;
     string title = childrenToText(node);
     if (title.size() > 9) {
         out.title = title.c_str();
         out.url = gumbo_get_attribute(&node->v.element.attributes, "href")->value;
-        return true;
+        out.date = time(0);
+        result.push_back(out);
     }
-    return false;
 }
