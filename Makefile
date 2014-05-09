@@ -33,6 +33,15 @@ TARGET       := bin/focus
 TARGET_TYPE  := app
 #TARGET_TYPE  := so
 
+ifdef TEST
+EXTRA_CFLAGS += -Dtest_$(TEST)=main
+SRC_DIR += tests
+$(shell touch tests/*)
+else
+EXTRA_CFLAGS += -Dmain_entry=main
+endif
+
+$(shell touch src/main.cpp)
 
 #####################################################################################
 #  Do not change any part of them unless you have understood this script very well  #
@@ -89,7 +98,7 @@ ifeq ($(TARGET_TYPE),so)
  LDFLAGS += -shared
 endif
 
-PHONY = all .mkdir clean
+PHONY = all .mkdir clean 3rdparty
 
 all: .mkdir 3rdparty $(TARGET)
 
