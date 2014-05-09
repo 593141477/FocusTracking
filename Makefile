@@ -22,7 +22,7 @@ LDFLAGS  += -L3rdparty/gumbo-parser/.libs -lgumbo
 
 INC_DIR   = include include/spider include/title include/tracker include/storage
 INC_DIR   += 3rdparty/gumbo-parser/src
-SRC_DIR   = src src/spider src/tracker src/storage tests
+SRC_DIR   = src src/spider src/tracker src/storage
 OBJ_DIR   = bin/objects
 EXTRA_SRC = 
 EXCLUDE_FILES = 
@@ -35,9 +35,13 @@ TARGET_TYPE  := app
 
 ifdef TEST
 EXTRA_CFLAGS += -Dtest_$(TEST)=main
+SRC_DIR += tests
+$(shell touch tests/*)
 else
 EXTRA_CFLAGS += -Dmain_entry=main
 endif
+
+$(shell touch src/main.cpp)
 
 #####################################################################################
 #  Do not change any part of them unless you have understood this script very well  #
