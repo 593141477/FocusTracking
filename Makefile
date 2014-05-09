@@ -22,7 +22,7 @@ LDFLAGS  += -L3rdparty/gumbo-parser/.libs -lgumbo
 
 INC_DIR   = include include/spider include/title include/tracker include/storage
 INC_DIR   += 3rdparty/gumbo-parser/src
-SRC_DIR   = src src/spider src/tracker src/storage
+SRC_DIR   = src src/spider src/tracker src/storage tests
 OBJ_DIR   = bin/objects
 EXTRA_SRC = 
 EXCLUDE_FILES = 
@@ -33,6 +33,11 @@ TARGET       := bin/focus
 TARGET_TYPE  := app
 #TARGET_TYPE  := so
 
+ifdef TEST
+EXTRA_CFLAGS += -Dtest_$(TEST)=main
+else
+EXTRA_CFLAGS += -Dmain_entry=main
+endif
 
 #####################################################################################
 #  Do not change any part of them unless you have understood this script very well  #
@@ -89,7 +94,7 @@ ifeq ($(TARGET_TYPE),so)
  LDFLAGS += -shared
 endif
 
-PHONY = all .mkdir clean
+PHONY = all .mkdir clean 3rdparty
 
 all: .mkdir 3rdparty $(TARGET)
 

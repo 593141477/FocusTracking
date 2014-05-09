@@ -19,7 +19,7 @@ void appendTitleSet(std::vector<title> &s, const CrawlingResult &res)
         s.push_back(tmp);
     }
 }
-int main() {
+int main_entry(int argc, char const *argv[]) {
     SqliteDatabaseStorage *storage;
     storage = new SqliteDatabaseStorage("crawling");
 
