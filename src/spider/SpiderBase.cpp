@@ -22,7 +22,7 @@ RetType SpiderBase::StartCrawling()
         doCrawling();
         state = SPIDER_HAS_DATA;
     }catch(...){
-        fprintf(stderr, "Exception occurred in %s\n", __func__);
+        log_err("Exception occurred in %s", __func__);
     }
     return RET_OK;
 }
@@ -49,67 +49,69 @@ static long curl_custom_writer(void *data, int size, int nmemb, string &content)
     return sizes;
 }
 
-std::pair<std::string, std::string> SpiderBase::httpGet(std::string url) const
+std::pair<std::string, std::string> SpiderBase::httpGet(string url, string charset) const
 {
     CURLcode code;
     CURL *curl = NULL;
     char error[CURL_ERROR_SIZE];
     char *ct;
     string  content;
-    string charset;
+
     const char *URL = url.c_str();
 
     curl = curl_easy_init();
     if (curl == NULL) {
-        fprintf(stderr, "Failed to create CURL connection\n");
+        log_err("Failed to create CURL connection");
         throw 1;
     }
     code = curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, error);
     if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to set error buffer [%d]\n", code );
+        log_err("Failed to set error buffer [%d]", code );
         throw 1;
     }
     // curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
     code = curl_easy_setopt(curl, CURLOPT_URL, URL);
     if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to set URL [%s]\n", error);
+        log_err("Failed to set URL [%s]", error);
         throw 1;
     }
     code = curl_easy_setopt(curl, CURLOPT_REFERER, URL);
     if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to set refer page [%s]\n", error);
+        log_err("Failed to set refer page [%s]", error);
         throw 1;
     }
     code = curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
     if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to set redirect option [%s]\n", error );
+        log_err("Failed to set redirect option [%s]", error );
         throw 1;
     }
     code = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_custom_writer);
     if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to set writer [%s]\n", error);
+        log_err("Failed to set writer [%s]", error);
         throw 1;
     }
     code = curl_easy_setopt(curl, CURLOPT_WRITEDATA, &content);
     if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to set write data [%s]\n", error );
+        log_err("Failed to set write data [%s]", error );
         throw 1;
     }
     code = curl_easy_perform(curl);
     if (code != CURLE_OK) {
-        fprintf(stderr, "Failed to get '%s' [%s]\n", URL, error);
+        log_err("Failed to get '%s' [%s]", URL, error);
         throw 1;
     }
-    /* ask for the content-type */
-    code = curl_easy_getinfo(curl, CURLINFO_CONTENT_TYPE, &ct);
-    charset = "UTF-8";
-    if ((CURLE_OK == code) && ct && extractCharsetFromHeader(ct, charset)) {
-        printf("We received Content-Type: %s\n", ct);
-    } else {
-        fprintf(stderr, "Failed to get charset from Content-Type\n");
-    }
-    if (extractCharsetFromMetaTag(content, charset)) {
-        fprintf(stderr, "Use charset definition in <meta> tag.\n");        
+    if(charset.empty()){
+        /* ask for the content-type */
+        code = curl_easy_getinfo(curl, CURLINFO_CONTENT_TYPE, &ct);
+        charset = "UTF-8";
+        if ((CURLE_OK == code) && ct && extractCharsetFromHeader(ct, charset)) {
+            printf("We received Content-Type: %s\n", ct);
+        } else {
+            log_warn("Failed to get charset from Content-Type");
+        }
+        if (extractCharsetFromMetaTag(content, charset)) {
+            log_info("Use charset definition in <meta> tag.");        
+        }
     }
     printf("Charset is: [%s]\n", charset.c_str());
     curl_easy_cleanup(curl);
@@ -189,12 +191,12 @@ string SpiderBase::charsetConv(string source, string charset) const
     return outbuf;
 }
 
-string SpiderBase::downloadWebPage(string url) const
+string SpiderBase::downloadWebPage(string url, std::string charset) const
 {
     std::pair<std::string, std::string> res;
     std::string str;
 
-    res = httpGet(url);
+    res = httpGet(url, charset);
     // printf("%s\n", "httpGet returned");
     str = charsetConv(res.first, res.second);
     return str;
