@@ -34,14 +34,13 @@ TARGET_TYPE  := app
 #TARGET_TYPE  := so
 
 ifdef TEST
-EXTRA_CFLAGS += -Dtest_$(TEST)=main
+EXTRA_CFLAGS += -DREAL_MAIN=test_$(TEST)
 SRC_DIR += tests
-$(shell touch tests/*)
 else
-EXTRA_CFLAGS += -Dmain_entry=main
+EXTRA_CFLAGS += -DREAL_MAIN=main_entry
 endif
 
-$(shell touch src/main.cpp)
+$(shell touch src/entry.cpp)
 
 #####################################################################################
 #  Do not change any part of them unless you have understood this script very well  #
