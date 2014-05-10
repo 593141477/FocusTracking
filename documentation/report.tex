@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+
+%设置页边距
+\usepackage{geometry}
+%\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+%地址链接支持
+\usepackage{hyperref}
+
+%支持分栏
+\usepackage{multicol}
+
+%页眉页脚
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{项目进展报告}
+\rhead{Project Progress Report}
+
+%设置字体
+\usepackage[no-math]{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\setmainfont[AutoFakeSlant]{Hiragino Sans GB W3}
+
+%设置换行缩进
+\usepackage[indentfirst=false,slantfont,boldfont]{xeCJK}
+\usepackage{indentfirst}
+\setlength{\parindent}{0.9cm}
+
+%行距
+\linespread{1.2}
+
+\begin{document}
+
+\title{项目进展报告：\\[3ex] 基于主页标题文字的\\热点新闻跟踪与分析、可视化展示\\[3ex]}
+
+\author{郭志芃\quad\href{mailto:gzp9595@gmail.com}{gzp9595@gmail.com}\\
+	徐磊\quad\href{mailto:leopard.lie@gmail.com}{leopard.lie@gmail.com}\\
+	张宇翔\quad\href{mailto:zz593141477@gmail.com}{zz593141477@gmail.com}\\[3ex]}
+\date{2014年5月10日}
+\maketitle
+\newpage
+\renewcommand{\contentsname}{项目进展报告}
+\tableofcontents
+\newpage
+\section{简介}
+“基于主页标题文字的热点新闻跟踪与分析、可视化展示”这一项目需要实现的功能为：对各大门户网站的新闻进行整合，将结果以一种优雅的方式展示给用户。由于新闻标题往往都包含了很大的信息量，同一事件的新闻标题也存在大量相同的词语，所以从统计学意义上对新闻标题进行处理就能很好的对标题进行整合。我们组计划前期将只支持某些特定的网站，未来有可能对用户指定的URL提供支持。
+\section{分工}
+\begin{center}
+\begin{table}[!hbp]
+\begin{tabular}{||l|l||}
+\hline\hline
+对网页新闻标题的抓取 & 张宇翔\\
+\hline
+对新闻标题的分析处理 & 徐磊\\
+\hline
+对处理结果的可视化展示 & 郭志芃\\
+\hline\hline
+\end{tabular}
+\end{table}
+\end{center}
+\section{进度}
+\subsection{抓取}
+%Please write something here
+\subsection{分析}
+分析部分需要实现将一个大的标题列表分成若干类的功能，需要解决的问题是分类的数量和分类的标准。目前已经实现的算法都基于一个假设，就是每个标题应当属于且仅属于一个分类。为了方便表述，我们把标题的列表称为$L$，把分类后的结果称为$S$，具体的说，$S$的每个元素是一个分类，而分类是一个标题的集合。基于之前的假设可以表述为$(\forall x \in L)(\exists u \in S)((x \in u )\bigwedge(\forall v \in S) (x \in v \Rightarrow u = v))$，作出形式化的描述只是为了将符号的含义解释清楚，对后面的算法并没有什么作用。
+
+一种分析的方法是以字为单位进行的。对$L$中的每个标题$x$分别处理，计算$x$与$S$中每个已有分类$u$的相似度，如果各个分类相似度的最大值大于某个阈值，则将$x$放入取得最大值的分类$u_0$，否则将$\lbrace x\rbrace$作为一个新的分类加入$S$中。现在需要定义一下相似度，将标题$x$与$y$的相似度定义为$y$中字符在$x$中出现的数量除$y$的长度，$x$与分类$u$的相似度定义为$x$与$u$中各个标题相似度的代数平均。实践表明，在阈值设定为0.2时可以得到较好结果。这种方法的优点在于分类的数量是动态的，分类的标准时可控的，但是相似性的计算粗糙导致结果不好。
+
+另一种分析的方法是以词为单位进行的。在已有算法中采用双向最大匹配算法进行分词，运用自然语言处理中常见的TF-IDF的方法对每个词给予了一定的权重。每个标题看做一个高维的向量，每个维度就表示一个次的TF-IDF值，运用cos-similarity来评估两个向量的相似性。最后运用K-means算法对向量进行聚类。这样做的优点在于减少了一些在标题中广泛使用的词语对结果的影响，K-means在聚类算法中得表现也较为优秀。缺点是手动确定分类数量需要超凡的技巧。
+
+在实现上述算法的过程中，使用了很多面向对象的思想。在实现算法之前，先定义好了接口，以及$L$和$S$的类型，使得前处理和后处理都能同步的进行，在类型的定义中，预留了一些特性来增强可扩展性。两种算法都是同一基类的派生类，所以用法相对一致，更换算法不需要对主程序进行大的修改。在第二个算法实现过程中，需要用到Trie这一数据结构，在此复用了之前写过的模板，模板的使用使得这个代码可以适用于string、u32string、int等各种类型的容器，代码的复用避免了“重新发明轮子”。
+\subsection{展示}
+%Please write something here
+\subsection{UML}
+\begin{center}
+\includegraphics[width=\textwidth]{uml.jpg}
+\end{center}
+\section{目标}
+%Please write something here
+\end{document}
