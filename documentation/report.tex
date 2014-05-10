@@ -2,7 +2,7 @@
 
 %设置页边距
 \usepackage{geometry}
-%\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 
 %地址链接支持
 \usepackage{hyperref}
@@ -50,7 +50,7 @@
 \begin{table}[!hbp]
 \begin{tabular}{||l|l||}
 \hline\hline
-对网页新闻标题的抓取 & 张宇翔\\
+对网页新闻标题的抓取及存储 & 张宇翔\\
 \hline
 对新闻标题的分析处理 & 徐磊\\
 \hline
@@ -59,9 +59,48 @@
 \end{tabular}
 \end{table}
 \end{center}
-\section{进度}
+\section{设计说明与进度}
 \subsection{抓取}
-%Please write something here
+网页抓取是整个系统的主要数据源,其准确性与可扩展性直接影响后期处理的效果,而现在各种web技术纷繁多样,导致抓取变得困难.因此这部分的设计充分利用了OOP中继承的优势,减少冗余代码,提高可扩展性.
+
+本部分集成了html和json解析,能够适应大部分的web页面和ajax请求数据解析,尽可能多的支持各个新闻网站.
+
+主要类的设计如下:
+
+\begin{itemize}
+\item SpiderBase\\
+所有Spider的基类,提供网页抓取的基础功能(如HTTP请求,编码转换)及异步任务调度,目前仅实现了前者
+
+\item GumboBasedSpider\\
+提供基于第三方库gumbo的html dom树解析,类中声明了两个纯虚的回调函数,留给子类实现,以适应不同网站的不同网页结构.
+其中searchNodeCallback在递归遍历dom节点时调用,由子类判断节点是否有用,是否需要深入遍历;resultCallback在遍历先前存储的节点时,有子类进一步过滤出需要保留的信息.
+
+\item JsonBasedSpider\\
+提供对于json格式数据的解析,尚在开发中.
+
+\item SpiderFor163,SpiderForQQ,SpiderForSina\\
+继承自SpiderBase,GumboBasedSpider,提供对于门户网站新闻主页的抓取
+
+\item SpiderFor163,SpiderForSinaRoll\\
+继承自SpiderBase,GumboBasedSpider,提供对于门户网站滚动新闻的抓取
+
+\item SpiderForQQRoll\\
+继承自SpiderBase,GumboBasedSpider,JsonBasedSpider,提供对于提醒滚动新闻的抓取.由于腾讯滚动新闻采用ajax加载包含html的json的机制,使得该功能必须同时依赖两种解析器.
+\end{itemize}
+
+\subsection{存储}
+本系统提供历史新闻跟踪分析功能,要求存储历史抓取数据,因此设计了数据存储部分.为了快速查找,这部分使用数据库作为后端存储.目前选用的轻量级的关系型数据库sqlite,如有必要,后期可考虑选用文档性数据库(NoSQL)实现更加灵活的数据存储.
+
+主要类的设计如下:
+
+\begin{itemize}
+\item StorageBase\\
+提供与数据库引擎无关的数据操作接口,使主程序与数据库解耦.目前,仅实现了插入和按日期查找的接口.
+
+\item SqliteDatabaseStorage\\
+继承自StorageBase,实现接口数据类型向sqlite数据库的类型转换,以及sql语句构造等功能.
+\end{itemize}
+
 \subsection{分析}
 分析部分需要实现将一个大的标题列表分成若干类的功能，需要解决的问题是分类的数量和分类的标准。目前已经实现的算法都基于一个假设，就是每个标题应当属于且仅属于一个分类。为了方便表述，我们把标题的列表称为$L$，把分类后的结果称为$S$，具体的说，$S$的每个元素是一个分类，而分类是一个标题的集合。基于之前的假设可以表述为$(\forall x \in L)(\exists u \in S)((x \in u )\bigwedge(\forall v \in S) (x \in v \Rightarrow u = v))$，作出形式化的描述只是为了将符号的含义解释清楚，对后面的算法并没有什么作用。
 
@@ -74,7 +113,7 @@
 %Please write something here
 \subsection{UML}
 \begin{center}
-\includegraphics[width=\textwidth]{uml.jpg}
+\includegraphics[width=\textwidth]{midUML.png}
 \end{center}
 \section{目标}
 %Please write something here
