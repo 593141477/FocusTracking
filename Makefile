@@ -19,9 +19,11 @@ LDFLAGS  += -std=c++11 -stdlib=libc++ -L/usr/local/lib $(shell pkg-config --libs
 LDFLAGS  += $(shell pkg-config --cflags --libs libpcre)
 LDFLAGS  += -lsqlite3
 LDFLAGS  += -L3rdparty/gumbo-parser/.libs -lgumbo
+LDFLAGS  += -L3rdparty/JSON++/build -ljson
 
 INC_DIR   = include include/spider include/tracker include/storage
 INC_DIR   += 3rdparty/gumbo-parser/src
+INC_DIR   += 3rdparty/JSON++
 SRC_DIR   = src src/spider src/tracker src/storage
 OBJ_DIR   = bin/objects
 EXTRA_SRC = 
@@ -101,13 +103,19 @@ PHONY = all .mkdir clean 3rdparty
 
 all: .mkdir 3rdparty $(TARGET)
 
-3rdparty: gumbo-parser
+3rdparty: gumbo-parser JSON++
 
 gumbo-parser: 3rdparty/gumbo-parser/.libs/libgumbo.a
+
+JSON++: 3rdparty/JSON++/build/libjson.a
 
 3rdparty/gumbo-parser/.libs/libgumbo.a:
 	cd 3rdparty/gumbo-parser && ./autogen.sh && ./configure --enable-static --disable-shared
 	make -C 3rdparty/gumbo-parser
+
+3rdparty/JSON++/build/libjson.a:
+	cd 3rdparty/JSON++/build && cmake ..
+	make -C 3rdparty/JSON++/build
 
 define cmd_o
 $$(obj-$1): $2%.o: %.$1  $(MAKEFILE_LIST)
