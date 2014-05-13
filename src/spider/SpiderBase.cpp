@@ -160,6 +160,7 @@ string SpiderBase::charsetConv(string source, string charset) const
 {
     size_t in_size = source.size();
     size_t out_size = in_size * 3;
+    size_t left = out_size;
     size_t ret;
 
     // iconvlist(print_one, NULL);
@@ -178,7 +179,8 @@ string SpiderBase::charsetConv(string source, string charset) const
     char *in_buf = (char *)source.c_str();
     char *out_buf = (char *)outbuf.c_str();
 
-    ret = iconv(hdl, &in_buf, &in_size, &out_buf, &out_size);
+    ret = iconv(hdl, &in_buf, &in_size, &out_buf, &left);
+    out_size -= left;
     if (ret == (size_t)(-1)) {
         iconv_close(hdl);
         perror("iconv");
