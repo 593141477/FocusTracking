@@ -1,6 +1,7 @@
 %{
 
     #include <iostream>
+    #include <string>
     #include <cstring>
     #include <stdio.h>
     #include <stdexcept>
@@ -35,7 +36,7 @@
 } 
 
 /** Define types for union values */
-%type<string_v> DOUBLE_QUOTED_STRING SINGLE_QUOTED_STRING WORD_STRING string property
+%type<string_v> SINGLE_QUOTED_STRING DOUBLE_QUOTED_STRING WORD_STRING string property
 %type<int_v> NUMBER_I
 %type<float_v> NUMBER_F
 %type<bool_v> BOOLEAN
@@ -71,34 +72,19 @@ value : NUMBER_I { $$ = new JSON::Value($1); }
     | NUMBER_F { $$ = new JSON::Value($1); }
     | BOOLEAN { $$ = new JSON::Value($1); }
     | NULL_T { $$ = new JSON::Value(); }
-    | string { $$ = new JSON::Value((std::string($1))); delete $1; }
+    | string { $$ = new JSON::Value((std::string($1))); free($1); }
     | object { $$ = new JSON::Value((*$1)); delete $1; }
     | array { $$ = new JSON::Value((*$1)); delete $1; }
     ;
 
 // String rule
-string : DOUBLE_QUOTED_STRING {
-        // Trim string
-        std::string s($1);
-        s = s.substr(1, s.length()-2);
-        char* t = new char[s.length()+1];
-        strcpy(t, s.c_str());
-        $$ = t;
-    } 
-    | SINGLE_QUOTED_STRING {
-        // Trim string
-        std::string s($1);
-        s = s.substr(1, s.length()-2);
-        char* t = new char[s.length()+1];
-        strcpy(t, s.c_str());
-        $$ = t;
-    };
+string : DOUBLE_QUOTED_STRING { $$ = $1; } 
+    | SINGLE_QUOTED_STRING { $$ = $1; }
+    ;
 
 property: string { $$ = $1; }
     | WORD_STRING {
-        char *t = new char[strlen($1)+1];
-        strcpy(t, $1);
-        $$ = t;
+        $$ = $1;
     };
 
 // Assignments rule
@@ -106,12 +92,12 @@ assignment_list: /* empty */ { $$ = new JSON::Object(); }
     | property COLON value {
         $$ = new JSON::Object();
         $$->insert(std::make_pair(std::string($1), (*$3)));
-        delete $1;
+        free($1);
         delete $3;
     } 
     | assignment_list COMMA property COLON value { 
         $$->insert(std::make_pair(std::string($3), (*$5)));
-        delete $3;
+        free($3);
         delete $5;
     }
     ;

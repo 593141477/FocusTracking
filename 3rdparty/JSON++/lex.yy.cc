@@ -1,6 +1,6 @@
-#line 2 "/Users/zhang/Projects/json-bison/lex.yy.cc"
+#line 2 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/lex.yy.cc"
 
-#line 4 "/Users/zhang/Projects/json-bison/lex.yy.cc"
+#line 4 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/lex.yy.cc"
 
 #define  YY_INT_ALIGNED short int
 
@@ -377,8 +377,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 17
-#define YY_END_OF_BUFFER 18
+#define YY_NUM_RULES 32
+#define YY_END_OF_BUFFER 33
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -386,13 +386,15 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_accept[47] =
+static yyconst flex_int16_t yy_accept[70] =
     {   0,
-       10,   10,   18,   16,    8,    7,   16,   16,   10,    5,
-       10,    9,    6,   15,   15,    1,    2,   15,   15,   15,
-        3,    4,    0,   13,    0,   14,   10,    9,    0,   10,
-        9,   15,   15,    0,   10,   15,   15,   15,   10,   15,
-       15,   15,   15,   12,   11,    0
+       27,   27,    0,    0,    0,    0,   33,   31,   25,   24,
+        1,    2,   27,   22,   27,   26,   23,   30,   30,   18,
+       19,   30,   30,   30,   20,   21,    3,    3,   15,   17,
+        4,    4,   16,   27,   26,    0,   27,   26,   30,   30,
+        0,   27,   30,   30,   30,    3,    5,    6,    8,    7,
+        9,   10,   11,   12,   13,    0,    4,   27,   30,   30,
+       30,    0,   30,   29,   28,    0,    0,   14,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -401,16 +403,16 @@ static yyconst flex_int32_t yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    2,    1,    4,    1,    1,    1,    1,    5,    1,
-        1,    1,    6,    7,    6,    8,    1,    9,    9,    9,
-        9,    9,    9,    9,    9,    9,    9,   10,    1,    1,
-        1,    1,    1,    1,   11,   11,   11,   11,   12,   11,
-       11,   11,   11,   11,   11,   11,   11,   11,   11,   11,
-       11,   11,   11,   11,   11,   11,   11,   11,   11,   11,
-       13,    1,   14,    1,   11,    1,   15,   11,   11,   11,
+        1,    1,    6,    7,    6,    8,    9,   10,   10,   10,
+       10,   10,   10,   10,   10,   10,   10,   11,    1,    1,
+        1,    1,    1,    1,   12,   12,   12,   12,   13,   12,
+       14,   14,   14,   14,   14,   14,   14,   14,   14,   14,
+       14,   14,   14,   14,   14,   14,   14,   14,   14,   14,
+       15,   16,   17,    1,   14,    1,   18,   19,   12,   12,
 
-       16,   17,   11,   11,   11,   11,   11,   18,   11,   19,
-       11,   11,   11,   20,   21,   22,   23,   11,   11,   11,
-       11,   11,   24,    1,   25,    1,    1,    1,    1,    1,
+       20,   21,   14,   14,   14,   14,   14,   22,   14,   23,
+       14,   14,   14,   24,   25,   26,   27,   14,   14,   14,
+       14,   14,   28,    1,   29,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -427,69 +429,86 @@ static yyconst flex_int32_t yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst flex_int32_t yy_meta[26] =
+static yyconst flex_int32_t yy_meta[30] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    2,    2,    1,
-        2,    2,    1,    1,    2,    2,    2,    2,    2,    2,
-        2,    2,    2,    1,    1
+        1,    1,    1,    2,    3,    1,    1,    4,    1,    5,
+        1,    5,    5,    4,    1,    6,    1,    5,    5,    5,
+        5,    4,    4,    4,    4,    4,    4,    1,    1
     } ;
 
-static yyconst flex_int16_t yy_base[50] =
+static yyconst flex_int16_t yy_base[79] =
     {   0,
-        0,    0,   88,   89,   89,   89,   83,   81,   18,   89,
-       19,   28,   89,   77,   33,   89,   89,   30,   24,   35,
-       89,   89,   80,   89,   73,   89,   37,    0,   42,   45,
-       54,   69,    0,   67,   69,   42,   50,   44,   63,   48,
-       56,   57,   63,   51,   25,   89,   79,   81,   27
+        0,    0,   27,   29,   31,   32,  133,  136,  136,  136,
+      136,  136,   31,  136,   36,   42,  136,  119,   32,  136,
+      136,   45,   46,   50,  136,  136,    0,    0,  136,   71,
+        0,    0,  136,   47,   51,   59,   68,   69,  102,    0,
+       99,  101,   62,   64,   58,    0,  136,  136,  136,  136,
+      136,  136,  136,  136,  136,    0,    0,   96,   75,   83,
+       88,    0,   91,   96,   95,    0,    0,  136,  136,  111,
+      117,  120,  125,  130,   97,   96,   88,   63
     } ;
 
-static yyconst flex_int16_t yy_def[50] =
+static yyconst flex_int16_t yy_def[79] =
     {   0,
-       46,    1,   46,   46,   46,   46,   47,   48,   46,   46,
-       46,   49,   46,   49,   49,   46,   46,   49,   49,   49,
-       46,   46,   47,   46,   48,   46,   46,    9,   46,   46,
-       49,   49,   15,   46,   15,   49,   49,   49,   46,   49,
-       49,   49,   49,   49,   49,    0,   46,   46,   46
+       69,    1,   70,   70,   71,   71,   69,   69,   69,   69,
+       69,   69,   69,   69,   69,   72,   69,   72,   72,   69,
+       69,   72,   72,   72,   69,   69,   73,   73,   69,   69,
+       74,   74,   69,   69,   69,   69,   69,   72,   72,   19,
+       69,   19,   72,   72,   72,   73,   69,   69,   69,   69,
+       69,   69,   69,   69,   69,   75,   74,   69,   72,   72,
+       72,   76,   72,   72,   72,   77,   78,   69,    0,   69,
+       69,   69,   69,   69,   69,   69,   69,   69
     } ;
 
-static yyconst flex_int16_t yy_nxt[115] =
+static yyconst flex_int16_t yy_nxt[166] =
     {   0,
-        4,    5,    6,    7,    8,    9,   10,   11,   12,   13,
-       14,   15,   16,   17,   14,   15,   18,   14,   19,   14,
-       14,   20,   14,   21,   22,   27,   28,   30,   32,   29,
-       29,   46,   46,   29,   29,   27,   31,   46,   34,   33,
-       46,   35,   46,   33,   36,   30,   37,   34,   29,   46,
-       39,   46,   29,   30,   38,   46,   29,   46,   46,   40,
-       29,   27,   31,   46,   46,   33,   42,   41,   43,   33,
-       46,   39,   45,   44,   46,   39,   46,   26,   45,   23,
-       23,   25,   25,   24,   46,   26,   24,   46,    3,   46,
-       46,   46,   46,   46,   46,   46,   46,   46,   46,   46,
+        8,    9,   10,   11,   12,   13,   14,   15,    8,   16,
+       17,   18,   19,   18,   20,    8,   21,   18,   18,   19,
+       22,   18,   23,   18,   18,   24,   18,   25,   26,   28,
+       29,   28,   29,   32,   32,   33,   33,   41,   34,   69,
+       35,   42,   30,   36,   30,   37,   30,   30,   36,   34,
+       36,   38,   69,   69,   40,   36,   37,   69,   34,   36,
+       35,   40,   43,   36,   41,   69,   36,   68,   58,   69,
+       36,   69,   44,   45,   47,   48,   34,   37,   38,   49,
+       36,   40,   69,   59,   61,   60,   50,   36,   40,   51,
+       69,   52,   67,   53,   54,   69,   55,   56,   69,   63,
 
-       46,   46,   46,   46,   46,   46,   46,   46,   46,   46,
-       46,   46,   46,   46
+       66,   62,   69,   69,   64,   58,   69,   65,   58,   69,
+       65,   27,   27,   27,   27,   27,   27,   31,   31,   31,
+       31,   31,   31,   39,   39,   46,   69,   46,   46,   46,
+       57,   57,   69,   57,   57,    7,   69,   69,   69,   69,
+       69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
+       69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
+       69,   69,   69,   69,   69
     } ;
 
-static yyconst flex_int16_t yy_chk[115] =
+static yyconst flex_int16_t yy_chk[166] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    9,    9,   11,   49,    9,
-       11,   19,   45,    9,   11,   12,   12,   18,   15,   12,
-       15,   15,   20,   12,   18,   27,   19,   29,   27,   36,
-       29,   38,   27,   30,   20,   40,   30,   37,   44,   36,
-       30,   31,   31,   41,   42,   31,   38,   37,   40,   31,
-       43,   39,   42,   41,   35,   34,   32,   25,   43,   47,
-       47,   48,   48,   23,   14,    8,    7,    3,   46,   46,
-       46,   46,   46,   46,   46,   46,   46,   46,   46,   46,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    3,
+        3,    4,    4,    5,    6,    5,    6,   19,   13,   19,
+       13,   19,    3,   13,    4,   15,    5,    6,   15,   16,
+       13,   16,   22,   23,   16,   15,   34,   24,   35,   34,
+       35,   16,   22,   35,   36,   45,   34,   78,   36,   43,
+       35,   44,   23,   24,   30,   30,   38,   37,   38,   30,
+       37,   38,   59,   43,   45,   44,   30,   37,   38,   30,
+       60,   30,   77,   30,   30,   61,   30,   30,   63,   59,
 
-       46,   46,   46,   46,   46,   46,   46,   46,   46,   46,
-       46,   46,   46,   46
+       76,   75,   65,   64,   60,   58,   42,   61,   41,   39,
+       63,   70,   70,   70,   70,   70,   70,   71,   71,   71,
+       71,   71,   71,   72,   72,   73,   18,   73,   73,   73,
+       74,   74,    7,   74,   74,   69,   69,   69,   69,   69,
+       69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
+       69,   69,   69,   69,   69,   69,   69,   69,   69,   69,
+       69,   69,   69,   69,   69
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static yyconst flex_int32_t yy_rule_can_match_eol[18] =
+static yyconst flex_int32_t yy_rule_can_match_eol[33] =
     {   0,
-0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,     };
+0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -505,19 +524,26 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "/Users/zhang/Projects/json-bison/json.l"
-#line 3 "/Users/zhang/Projects/json-bison/json.l"
+#line 1 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+#line 4 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
     // Provided externally
     extern "C" 
     {
         int yylex();
     }
     
+    #include <cstdio>
+    #include <string>
+    #include <codecvt>
     // Needed for the tokens
     #include "json.tab.hh"
-#line 519 "/Users/zhang/Projects/json-bison/lex.yy.cc"
+
+
+#line 543 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/lex.yy.cc"
 
 #define INITIAL 0
+#define DQSTR 1
+#define SQSTR 2
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way
@@ -594,6 +620,16 @@ static int input (void );
 
 #endif
 
+        static int yy_start_stack_ptr = 0;
+        static int yy_start_stack_depth = 0;
+        static int *yy_start_stack = NULL;
+    
+    static void yy_push_state (int new_state );
+    
+    static void yy_pop_state (void );
+    
+    static int yy_top_state (void );
+    
 /* Amount of stuff to slurp up with each read. */
 #ifndef YY_READ_BUF_SIZE
 #define YY_READ_BUF_SIZE 8192
@@ -697,10 +733,11 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 13 "/Users/zhang/Projects/json-bison/json.l"
+#line 19 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
 
+	std::string string_buf;
 
-#line 704 "/Users/zhang/Projects/json-bison/lex.yy.cc"
+#line 741 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/lex.yy.cc"
 
 	if ( !(yy_init) )
 		{
@@ -753,13 +790,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 47 )
+				if ( yy_current_state >= 70 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 89 );
+		while ( yy_base[yy_current_state] != 136 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -795,94 +832,171 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 15 "/Users/zhang/Projects/json-bison/json.l"
-{ return SQUARE_BRACKET_L; }
+#line 22 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ BEGIN(DQSTR); string_buf.clear(); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 16 "/Users/zhang/Projects/json-bison/json.l"
-{ return SQUARE_BRACKET_R; }
+#line 23 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ BEGIN(SQSTR); string_buf.clear(); }
 	YY_BREAK
 case 3:
+/* rule 3 can match eol */
 YY_RULE_SETUP
-#line 17 "/Users/zhang/Projects/json-bison/json.l"
-{ return CURLY_BRACKET_L; }
+#line 24 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append(yytext); }
 	YY_BREAK
 case 4:
+/* rule 4 can match eol */
 YY_RULE_SETUP
-#line 18 "/Users/zhang/Projects/json-bison/json.l"
-{ return CURLY_BRACKET_R; }
+#line 25 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append(yytext); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 19 "/Users/zhang/Projects/json-bison/json.l"
-{ return COMMA; }
+#line 26 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append("\""); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 20 "/Users/zhang/Projects/json-bison/json.l"
-{ return COLON; }
+#line 27 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append("\'"); }
 	YY_BREAK
 case 7:
-/* rule 7 can match eol */
 YY_RULE_SETUP
-#line 21 "/Users/zhang/Projects/json-bison/json.l"
-{ }
+#line 28 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append("\\"); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 22 "/Users/zhang/Projects/json-bison/json.l"
-{ }
+#line 29 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append("/"); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 23 "/Users/zhang/Projects/json-bison/json.l"
-{ yylval.int_v = atoi(yytext); return NUMBER_I; }
+#line 30 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append("\b"); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 24 "/Users/zhang/Projects/json-bison/json.l"
-{ yylval.float_v = atof(yytext); return NUMBER_F; }
+#line 31 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append("\f"); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 25 "/Users/zhang/Projects/json-bison/json.l"
-{ yylval.bool_v = ( strcmp(yytext, "true") == 0 ? true : false); return BOOLEAN; }
+#line 32 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append("\n"); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 26 "/Users/zhang/Projects/json-bison/json.l"
-{ return NULL_T; }
+#line 33 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append("\r"); }
 	YY_BREAK
 case 13:
-/* rule 13 can match eol */
 YY_RULE_SETUP
-#line 27 "/Users/zhang/Projects/json-bison/json.l"
-{ yylval.string_v = yytext; return DOUBLE_QUOTED_STRING; }
+#line 34 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append("\t"); }
 	YY_BREAK
 case 14:
-/* rule 14 can match eol */
 YY_RULE_SETUP
-#line 28 "/Users/zhang/Projects/json-bison/json.l"
-{ yylval.string_v = yytext; return SINGLE_QUOTED_STRING; }
+#line 35 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ wchar_t ch; sscanf(yytext,"\\u%x",&ch); string_buf.append(std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(ch)); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 29 "/Users/zhang/Projects/json-bison/json.l"
-{ yylval.string_v = yytext; return WORD_STRING; }
+#line 36 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ BEGIN(INITIAL); yylval.string_v = strdup(string_buf.c_str()); return DOUBLE_QUOTED_STRING; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 30 "/Users/zhang/Projects/json-bison/json.l"
-{  }
+#line 37 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ BEGIN(INITIAL); yylval.string_v = strdup(string_buf.c_str()); return SINGLE_QUOTED_STRING; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 32 "/Users/zhang/Projects/json-bison/json.l"
+#line 38 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ string_buf.append(yytext); }
+	YY_BREAK
+case 18:
+YY_RULE_SETUP
+#line 40 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ return SQUARE_BRACKET_L; }
+	YY_BREAK
+case 19:
+YY_RULE_SETUP
+#line 41 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ return SQUARE_BRACKET_R; }
+	YY_BREAK
+case 20:
+YY_RULE_SETUP
+#line 42 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ return CURLY_BRACKET_L; }
+	YY_BREAK
+case 21:
+YY_RULE_SETUP
+#line 43 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ return CURLY_BRACKET_R; }
+	YY_BREAK
+case 22:
+YY_RULE_SETUP
+#line 44 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ return COMMA; }
+	YY_BREAK
+case 23:
+YY_RULE_SETUP
+#line 45 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ return COLON; }
+	YY_BREAK
+case 24:
+/* rule 24 can match eol */
+YY_RULE_SETUP
+#line 46 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ }
+	YY_BREAK
+case 25:
+YY_RULE_SETUP
+#line 47 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ }
+	YY_BREAK
+case 26:
+YY_RULE_SETUP
+#line 48 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ yylval.int_v = atoi(yytext); return NUMBER_I; }
+	YY_BREAK
+case 27:
+YY_RULE_SETUP
+#line 49 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ yylval.float_v = atof(yytext); return NUMBER_F; }
+	YY_BREAK
+case 28:
+YY_RULE_SETUP
+#line 50 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ yylval.bool_v = ( strcmp(yytext, "true") == 0 ? true : false); return BOOLEAN; }
+	YY_BREAK
+case 29:
+YY_RULE_SETUP
+#line 51 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ return NULL_T; }
+	YY_BREAK
+case 30:
+YY_RULE_SETUP
+#line 52 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{ yylval.string_v = strdup(yytext); return WORD_STRING; }
+	YY_BREAK
+case 31:
+YY_RULE_SETUP
+#line 53 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
+{  }
+	YY_BREAK
+case 32:
+YY_RULE_SETUP
+#line 55 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 885 "/Users/zhang/Projects/json-bison/lex.yy.cc"
+#line 997 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
+case YY_STATE_EOF(DQSTR):
+case YY_STATE_EOF(SQSTR):
 	yyterminate();
 
 	case YY_END_OF_BUFFER:
@@ -1173,7 +1287,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 47 )
+			if ( yy_current_state >= 70 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -1201,11 +1315,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 47 )
+		if ( yy_current_state >= 70 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 46);
+	yy_is_jam = (yy_current_state == 69);
 
 	return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1682,6 +1796,43 @@ YY_BUFFER_STATE yy_scan_bytes  (yyconst char * yybytes, yy_size_t  _yybytes_len 
 	return b;
 }
 
+    static void yy_push_state (int  new_state )
+{
+    	if ( (yy_start_stack_ptr) >= (yy_start_stack_depth) )
+		{
+		yy_size_t new_size;
+
+		(yy_start_stack_depth) += YY_START_STACK_INCR;
+		new_size = (yy_start_stack_depth) * sizeof( int );
+
+		if ( ! (yy_start_stack) )
+			(yy_start_stack) = (int *) yyalloc(new_size  );
+
+		else
+			(yy_start_stack) = (int *) yyrealloc((void *) (yy_start_stack),new_size  );
+
+		if ( ! (yy_start_stack) )
+			YY_FATAL_ERROR( "out of memory expanding start-condition stack" );
+		}
+
+	(yy_start_stack)[(yy_start_stack_ptr)++] = YY_START;
+
+	BEGIN(new_state);
+}
+
+    static void yy_pop_state  (void)
+{
+    	if ( --(yy_start_stack_ptr) < 0 )
+		YY_FATAL_ERROR( "start-condition stack underflow" );
+
+	BEGIN((yy_start_stack)[(yy_start_stack_ptr)]);
+}
+
+    static int yy_top_state  (void)
+{
+    	return (yy_start_stack)[(yy_start_stack_ptr) - 1];
+}
+
 #ifndef YY_EXIT_FAILURE
 #define YY_EXIT_FAILURE 2
 #endif
@@ -1805,6 +1956,10 @@ static int yy_init_globals (void)
     (yy_init) = 0;
     (yy_start) = 0;
 
+    (yy_start_stack_ptr) = 0;
+    (yy_start_stack_depth) = 0;
+    (yy_start_stack) =  NULL;
+
 /* Defined in main.c */
 #ifdef YY_STDINIT
     yyin = stdin;
@@ -1834,6 +1989,10 @@ int yylex_destroy  (void)
 	/* Destroy the stack itself. */
 	yyfree((yy_buffer_stack) );
 	(yy_buffer_stack) = NULL;
+
+    /* Destroy the start condition stack. */
+        yyfree((yy_start_stack)  );
+        (yy_start_stack) = NULL;
 
     /* Reset the globals. This is important in a non-reentrant scanner so the next time
      * yylex() is called, initialization will occur. */
@@ -1890,7 +2049,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 32 "/Users/zhang/Projects/json-bison/json.l"
+#line 55 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.l"
 
 
 

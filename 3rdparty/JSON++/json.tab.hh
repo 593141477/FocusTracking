@@ -30,8 +30,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_USERS_ZHANG_PROJECTS_JSON_BISON_JSON_TAB_HH_INCLUDED
-# define YY_YY_USERS_ZHANG_PROJECTS_JSON_BISON_JSON_TAB_HH_INCLUDED
+#ifndef YY_YY_USERS_ZHANG_PROJECTS_FOCUSTRACKING_3RDPARTY_JSON_JSON_TAB_HH_INCLUDED
+# define YY_YY_USERS_ZHANG_PROJECTS_FOCUSTRACKING_3RDPARTY_JSON_JSON_TAB_HH_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -40,10 +40,10 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 20 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1915  */
+#line 21 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1915  */
  #include "json_st.hh" 
 
-#line 47 "/Users/zhang/Projects/json-bison/json.tab.hh" /* yacc.c:1915  */
+#line 47 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.hh" /* yacc.c:1915  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -71,7 +71,7 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 23 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1915  */
+#line 24 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1915  */
 
     // "Pure" types
     long long int int_v;
@@ -85,7 +85,7 @@ union YYSTYPE
     JSON::Array* array_p;
     JSON::Value* value_p;
 
-#line 89 "/Users/zhang/Projects/json-bison/json.tab.hh" /* yacc.c:1915  */
+#line 89 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.hh" /* yacc.c:1915  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -96,4 +96,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_USERS_ZHANG_PROJECTS_JSON_BISON_JSON_TAB_HH_INCLUDED  */
+#endif /* !YY_YY_USERS_ZHANG_PROJECTS_FOCUSTRACKING_3RDPARTY_JSON_JSON_TAB_HH_INCLUDED  */

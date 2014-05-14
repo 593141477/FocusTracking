@@ -6,15 +6,16 @@ using namespace std;
 using namespace JSON;
 
 static string test_json = R"EOF({
-    type: "and",
+    "type": "'and'",
+    "unicode": "\u9999",
     "postprocessors": [
         {
-            "type": "hammersley",
+            "type": "\"hammersley\"",
             "points": 16
         },
         {
-            "type": "rounding",
-            "round": {
+            "type": "rounding\/o\\",
+            'round': {
                 "temperature": 0,
                 "neighbors-accepted": 0
             }

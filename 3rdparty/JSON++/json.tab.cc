@@ -62,10 +62,11 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:339  */
+#line 1 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:339  */
 
 
     #include <iostream>
+    #include <string>
     #include <cstring>
     #include <stdio.h>
     #include <stdexcept>
@@ -81,7 +82,7 @@
     void load_file(FILE*);
     JSON::Value* parsd = nullptr;
 
-#line 85 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:339  */
+#line 86 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -101,8 +102,8 @@
 
 /* In a future release of Bison, this section will be replaced
    by #include "json.tab.hh".  */
-#ifndef YY_YY_USERS_ZHANG_PROJECTS_JSON_BISON_JSON_TAB_HH_INCLUDED
-# define YY_YY_USERS_ZHANG_PROJECTS_JSON_BISON_JSON_TAB_HH_INCLUDED
+#ifndef YY_YY_USERS_ZHANG_PROJECTS_FOCUSTRACKING_3RDPARTY_JSON_JSON_TAB_HH_INCLUDED
+# define YY_YY_USERS_ZHANG_PROJECTS_FOCUSTRACKING_3RDPARTY_JSON_JSON_TAB_HH_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -111,10 +112,10 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 20 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:355  */
+#line 21 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:355  */
  #include "json_st.hh" 
 
-#line 118 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:355  */
+#line 119 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:355  */
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -142,7 +143,7 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 23 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:355  */
+#line 24 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:355  */
 
     // "Pure" types
     long long int int_v;
@@ -156,7 +157,7 @@ union YYSTYPE
     JSON::Array* array_p;
     JSON::Value* value_p;
 
-#line 160 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:355  */
+#line 161 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -167,11 +168,11 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_USERS_ZHANG_PROJECTS_JSON_BISON_JSON_TAB_HH_INCLUDED  */
+#endif /* !YY_YY_USERS_ZHANG_PROJECTS_FOCUSTRACKING_3RDPARTY_JSON_JSON_TAB_HH_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 175 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:358  */
+#line 176 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -470,9 +471,9 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    61,    61,    64,    67,    70,    71,    72,    73,    74,
-      75,    76,    80,    88,    97,    98,   105,   106,   112,   120,
-     121,   126
+       0,    62,    62,    65,    68,    71,    72,    73,    74,    75,
+      76,    77,    81,    82,    85,    86,    91,    92,    98,   106,
+     107,   112
 };
 #endif
 
@@ -1259,161 +1260,145 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 61 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 62 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { parsd = (yyvsp[0].value_p); }
-#line 1265 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1266 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 3:
-#line 64 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 65 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { (yyval.object_p) = (yyvsp[-1].object_p); }
-#line 1271 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1272 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 4:
-#line 67 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 68 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { (yyval.array_p) = (yyvsp[-1].array_p); }
-#line 1277 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1278 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 5:
-#line 70 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 71 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { (yyval.value_p) = new JSON::Value((yyvsp[0].int_v)); }
-#line 1283 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1284 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 6:
-#line 71 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 72 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { (yyval.value_p) = new JSON::Value((yyvsp[0].float_v)); }
-#line 1289 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1290 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 7:
-#line 72 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 73 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { (yyval.value_p) = new JSON::Value((yyvsp[0].bool_v)); }
-#line 1295 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1296 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 8:
-#line 73 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 74 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { (yyval.value_p) = new JSON::Value(); }
-#line 1301 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1302 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 9:
-#line 74 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
-    { (yyval.value_p) = new JSON::Value((std::string((yyvsp[0].string_v)))); delete (yyvsp[0].string_v); }
-#line 1307 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 75 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
+    { (yyval.value_p) = new JSON::Value((std::string((yyvsp[0].string_v)))); free((yyvsp[0].string_v)); }
+#line 1308 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 10:
-#line 75 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 76 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { (yyval.value_p) = new JSON::Value((*(yyvsp[0].object_p))); delete (yyvsp[0].object_p); }
-#line 1313 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1314 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 11:
-#line 76 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 77 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { (yyval.value_p) = new JSON::Value((*(yyvsp[0].array_p))); delete (yyvsp[0].array_p); }
-#line 1319 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1320 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 12:
-#line 80 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
-    {
-        // Trim string
-        std::string s((yyvsp[0].string_v));
-        s = s.substr(1, s.length()-2);
-        char* t = new char[s.length()+1];
-        strcpy(t, s.c_str());
-        (yyval.string_v) = t;
-    }
-#line 1332 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 81 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
+    { (yyval.string_v) = (yyvsp[0].string_v); }
+#line 1326 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 13:
-#line 88 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
-    {
-        // Trim string
-        std::string s((yyvsp[0].string_v));
-        s = s.substr(1, s.length()-2);
-        char* t = new char[s.length()+1];
-        strcpy(t, s.c_str());
-        (yyval.string_v) = t;
-    }
-#line 1345 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 82 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
+    { (yyval.string_v) = (yyvsp[0].string_v); }
+#line 1332 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 14:
-#line 97 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 85 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { (yyval.string_v) = (yyvsp[0].string_v); }
-#line 1351 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1338 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 15:
-#line 98 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 86 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     {
-        char *t = new char[strlen((yyvsp[0].string_v))+1];
-        strcpy(t, (yyvsp[0].string_v));
-        (yyval.string_v) = t;
+        (yyval.string_v) = (yyvsp[0].string_v);
     }
-#line 1361 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1346 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 16:
-#line 105 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 91 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { (yyval.object_p) = new JSON::Object(); }
-#line 1367 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1352 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 17:
-#line 106 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 92 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     {
         (yyval.object_p) = new JSON::Object();
         (yyval.object_p)->insert(std::make_pair(std::string((yyvsp[-2].string_v)), (*(yyvsp[0].value_p))));
-        delete (yyvsp[-2].string_v);
+        free((yyvsp[-2].string_v));
         delete (yyvsp[0].value_p);
     }
-#line 1378 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1363 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 18:
-#line 112 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 98 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { 
         (yyval.object_p)->insert(std::make_pair(std::string((yyvsp[-2].string_v)), (*(yyvsp[0].value_p))));
-        delete (yyvsp[-2].string_v);
+        free((yyvsp[-2].string_v));
         delete (yyvsp[0].value_p);
     }
-#line 1388 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1373 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 19:
-#line 120 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 106 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { (yyval.array_p) = new JSON::Array(); }
-#line 1394 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1379 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 20:
-#line 121 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 107 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     {
         (yyval.array_p) = new JSON::Array();
         (yyval.array_p)->push_back((*(yyvsp[0].value_p)));
         delete (yyvsp[0].value_p);
     }
-#line 1404 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1389 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
   case 21:
-#line 126 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1661  */
+#line 112 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1661  */
     { 
         (yyval.array_p)->push_back((*(yyvsp[0].value_p))); 
         delete (yyvsp[0].value_p);
     }
-#line 1413 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1398 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
     break;
 
 
-#line 1417 "/Users/zhang/Projects/json-bison/json.tab.cc" /* yacc.c:1661  */
+#line 1402 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.tab.cc" /* yacc.c:1661  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1641,7 +1626,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 132 "/Users/zhang/Projects/json-bison/json.y" /* yacc.c:1906  */
+#line 118 "/Users/zhang/Projects/FocusTracking/3rdparty/JSON++/json.y" /* yacc.c:1906  */
 
 
 JSON::Value parse_file(const char* filename)
