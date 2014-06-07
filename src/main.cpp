@@ -54,6 +54,11 @@ int main_entry(int argc, char const *argv[]) {
     std::vector<titlebundle> bundle = mytracker->trackFocus(titleSet);
     
     for (std::vector<titlebundle>::iterator ii = bundle.begin(); ii != bundle.end();ii++) {
+        const std::vector<std::u32string> tags = ii->getTags();
+        std::cout << "TAGS: ";
+        for (auto jj = tags.begin(); jj != tags.end(); jj++)
+            std::cout << cv.to_bytes(*jj) << " ";
+        std::cout << std::endl;
         const std::vector<title> titles = ii->getTitles();
         for (std::vector<title>::const_iterator jj = titles.cbegin(); jj != titles.cend(); jj++) {
             std::cout << cv.to_bytes(jj->name) << std::endl;;
@@ -63,4 +68,5 @@ int main_entry(int argc, char const *argv[]) {
     
     delete mytracker;
     mytracker = NULL;
+    return 0;
 }

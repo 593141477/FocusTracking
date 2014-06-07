@@ -8,6 +8,10 @@ trackerCluster::trackerCluster() {
     loopNum = 10;
     std::ifstream model;
     model.open("segmentModel.txt");
+    if (!model.is_open()) {
+        std::cout << "MODEL FILE FAILED" << std::endl;
+        exit(0);
+    }
     segmenter.init(model);
     model.close();
 }
@@ -17,6 +21,10 @@ trackerCluster::trackerCluster(int c, int l) {
     loopNum = l;
     std::ifstream model;
     model.open("segmentModel.txt");
+    if (!model.is_open()) {
+        std::cout << "MODEL FILE FAILED" << std::endl;
+        exit(0);
+    }
     segmenter.init(model);
     model.close();
 }
@@ -32,6 +40,10 @@ std::vector<titlebundle> trackerCluster::trackFocus(const std::vector<title> &ti
     
     for (int i = 0; i < n; i++) {
         titlesSegment[i] = segmenter.getSegment(titles[i].name);
+        //if (titlesSegment[i].size() <= 1) {
+        //    std::wstring_convert<std::codecvt_utf8<char32_t>,char32_t> cv;
+        //    std::cout << "ERROR" << cv.to_bytes(titles[i].name) << std::endl;
+        //}
         int countErase = 0, m = titlesSegment[i].size();
         for (int j = 0; j < m; j++)
             if (hasMark(titlesSegment[i][j - countErase]))
@@ -54,7 +66,6 @@ std::vector<titlebundle> trackerCluster::trackFocus(const std::vector<title> &ti
     if (clusterNum > n) clusterNum = n;
     std::vector< std::vector<int> > cluster(clusterNum);
     std::vector<bool> isClustered;
-    
     for (int t = 0; t < loopNum; t++) {
         isClustered.clear();
         isClustered.resize(n, false);
@@ -86,10 +97,29 @@ std::vector<titlebundle> trackerCluster::trackFocus(const std::vector<title> &ti
             cluster[bestId].push_back(i);
         }
     }
+    
     std::vector<titlebundle> ret(clusterNum);
-    for (int i = 0; i < clusterNum; i++)
-        for (int j = 0; j < cluster[i].size(); j++)
+    for (int i = 0; i < clusterNum; i++) {
+        std::map<std::u32string, double> wordCount;
+        for (int j = 0; j < cluster[i].size(); j++) {
             ret[i].addTitle(titles[cluster[i][j]]);
+            int now = cluster[i][j];
+            for (int p = 0; p < titlesSegment[now].size(); p++) {
+                if (wordCount.find(titlesSegment[now][p]) != wordCount.end())
+                    wordCount[titlesSegment[now][p]] = tfidf[now][p] * titlesSegment[now][p].size();
+                else
+                    wordCount[titlesSegment[now][p]] += tfidf[now][p] * titlesSegment[now][p].size();
+            }
+        }
+        std::vector< std::pair<double, std::u32string> > countSort;
+        for (auto ii = wordCount.begin(); ii != wordCount.end(); ii++)
+            countSort.push_back(std::make_pair(ii->second, ii->first));
+        std::sort(countSort.rbegin(), countSort.rend());
+        for (int t = 0; t < countSort.size(); t++)
+            ret[i].addTags(countSort[t].second);
+    }
+    std::sort(ret.rbegin(), ret.rend(),
+              [](titlebundle &a, titlebundle &b) {return a.getTitles().size() < b.getTitles().size();});
     return ret;
 }
 
@@ -145,3 +175,4 @@ int trackerCluster::getCenter(const std::vector<int> &category,
     if (bestId == -1) bestId = category[0];
     return bestId;
 }
+
