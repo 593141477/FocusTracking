@@ -192,6 +192,7 @@ body {
             $('#show').click(function(e){
                 var $t = $(e.target);
                 if($t.is('.btn')){
+                    e.preventDefault();
                     var c = $t.data('num');
                     var tags = TAGS_List[c];
                     $t.parent().parent().find('.links').toggle();
