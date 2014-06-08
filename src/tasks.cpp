@@ -102,13 +102,12 @@ std::string GetBundleTitlesByDate(
     log_info("%d\n", titleSet.size());
 
     
-    std::vector<titlebundle> bundle = gMytracker->trackFocus(titleSet);
-    
     std::wstring_convert<std::codecvt_utf8<char32_t>,char32_t> cv;
 
     std::ostringstream os;
 
     log_info("tracker started");
+    std::vector<titlebundle> bundle = gMytracker->trackFocus(titleSet);
 
     for (std::vector<titlebundle>::iterator ii = bundle.begin(); ii != bundle.end();ii++) {
         const std::vector<std::u32string> tags = ii->getTags();

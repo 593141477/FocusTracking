@@ -105,7 +105,7 @@ std::pair<std::string, std::string> SpiderBase::httpGet(string url, string chars
         code = curl_easy_getinfo(curl, CURLINFO_CONTENT_TYPE, &ct);
         charset = "UTF-8";
         if ((CURLE_OK == code) && ct && extractCharsetFromHeader(ct, charset)) {
-            printf("We received Content-Type: %s\n", ct);
+            log_info("Content-Type in HTTP header: %s\n", ct);
         } else {
             log_warn("Failed to get charset from Content-Type");
         }
@@ -113,7 +113,7 @@ std::pair<std::string, std::string> SpiderBase::httpGet(string url, string chars
             log_info("Use charset definition in <meta> tag.");        
         }
     }
-    printf("Charset is: [%s]\n", charset.c_str());
+    log_info("Charset is: [%s]\n", charset.c_str());
     curl_easy_cleanup(curl);
     return make_pair(content, charset);
 }
