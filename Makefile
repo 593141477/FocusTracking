@@ -20,11 +20,12 @@ LDFLAGS  += $(shell pkg-config --cflags --libs libpcre)
 LDFLAGS  += -lsqlite3
 LDFLAGS  += -L3rdparty/gumbo-parser/.libs -lgumbo
 LDFLAGS  += -L3rdparty/JSON++/build -ljson
+LDFLAGS  += -lmicrohttpd
 
-INC_DIR   = include include/spider include/tracker include/storage
+INC_DIR   = include include/spider include/tracker include/storage include/web
 INC_DIR   += 3rdparty/gumbo-parser/src
 INC_DIR   += 3rdparty/JSON++
-SRC_DIR   = src src/spider src/tracker src/storage
+SRC_DIR   = src src/spider src/tracker src/storage src/web
 OBJ_DIR   = bin/objects
 EXTRA_SRC = 
 EXCLUDE_FILES = 
