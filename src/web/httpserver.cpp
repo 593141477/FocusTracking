@@ -40,9 +40,13 @@ static int send_page (struct MHD_Connection *connection, const char *page)
     struct MHD_Response *response;
     response =
         MHD_create_response_from_buffer (strlen (page), (void *) page,
-                                         MHD_RESPMEM_PERSISTENT);
+                                         MHD_RESPMEM_MUST_COPY);
     if (!response)
         return MHD_NO;
+
+    MHD_add_response_header(response, "Content-Type", "text/html");
+    MHD_add_response_header(response, "Access-Control-Allow-Origin", "*");
+    MHD_add_response_header(response, "Access-Control-Allow-Origin", "http://115.28.18.88:80");
     ret = MHD_queue_response (connection, MHD_HTTP_OK, response);
     MHD_destroy_response (response);
     return ret;
