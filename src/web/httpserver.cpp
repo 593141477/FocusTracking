@@ -71,30 +71,17 @@ static void request_completed (void *cls, struct MHD_Connection *connection,
     *con_cls = NULL;
 }
 
-std::chrono::system_clock::time_point date_string_to_time_point(const string &s)
-{
-    std::tm tm;
-    strptime(s.c_str(), "%Y-%m-%d", &tm);
-    return std::chrono::system_clock::from_time_t(std::mktime(&tm));
-}
-
 string get_info(const char *todo, size_t len)
 {
-    using namespace std::chrono;
     string first, second(todo, len);
     first = second.substr(0, second.find('+'));
     second = second.substr(second.find('+') + 1);
     log_info("Fetch data from [%s] to [%s]", first.c_str(), second.c_str());
 
-    auto s = date_string_to_time_point(first);
-    auto t = date_string_to_time_point(second);
+    time_t s = atoll(first.c_str()), t = atoll(second.c_str());
 
-    // std::time_t ss = std::chrono::system_clock::to_time_t(s);
-    // std::cout << std::ctime(&ss) << std::endl;
-    // std::time_t tt = std::chrono::system_clock::to_time_t(t);
-    // std::cout << std::ctime(&tt) << std::endl;
-
-    return GetBundleTitlesByDate(system_clock::now()-hours(48), system_clock::now());
+    return GetBundleTitlesByDate(std::chrono::system_clock::from_time_t(s),
+        std::chrono::system_clock::from_time_t(t));
 }
 
 static int answer_to_connection (void *cls, struct MHD_Connection *connection,

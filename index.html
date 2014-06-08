@@ -15,7 +15,9 @@
     function showCustomer()
     {
         var SendData = "";
-        SendData=$("#user_first_date").val()+"+"+$("#user_second_date").val();
+        var s = new Date($("#user_first_date").val());
+        var t = new Date($("#user_second_date").val());
+        SendData=s.getTime()/1000+"+"+t.getTime()/1000;
         $.post('/api/get', SendData, function(data){
             var Backdata= "",arr=data.split("\n");
             var countblock = 0;
@@ -40,37 +42,8 @@
                     i++;
                 }
             }
-            /*
-            for(var i=temp.search(/TAGS:/);i>=0;i=temp.search(/TAGS:/))
-            {
-                //var i=temp.search(/TAGS:/)
-                Backdata+= "<div class=\"col-6 col-sm-6 col-lg-4\">" + temp.substr(0,i);
-                temp=temp.substr(i);
-                var j=temp.search(/\n/);
-                Backdata+="<p class=\"flip\"> 关键词，点击显示或隐藏</p><p class=\"panel\" style=\"display: none;\">"+temp.substr(0,j)+"</p>"
-                temp=temp.substr(j+1);
-                Backdata+="</div>";
-            }
-            Backdata+="<div class=\"col-6 col-sm-6 col-lg-4\">" + temp + "</div>";
-            temp=Backdata;
-            Backdata="";
-            for(var i=temp.search(/http:/);i>=0;i=temp.search(/http:/))
-            {
-                Backdata+=temp.substr(0,i);
-                temp=temp.substr(i);
-                var j=temp.search(/\n/);
-                Backdata+="<a href=\""+temp.substr(0,j-1)+"\" class=\"font1\" target=\"_blank\">";
-                temp=temp.substr(j+1);
-                j=temp.search(/\n/);
-                Backdata+=temp.substr(0,j-1)+"</a><br>";
-                temp=temp.substr(j+1);
-            }
-            Backdata+=temp;
-            Backdata=Backdata.replace(/\n/g,"<br>");
-            */
             
             document.getElementById('show').innerHTML=Backdata;
-            console.log(Backdata);
         });
     }
     </script>
@@ -212,16 +185,15 @@ body {
           "shape" : "circle"
         };
         $(function(){
-            $('#form1').submit(function(){
+            $('#form1').submit(function(e){
+                e.preventDefault();
                 showCustomer();
-                return false;
             });
             $('#show').click(function(e){
                 var $t = $(e.target);
                 if($t.is('.btn')){
                     var c = $t.data('num');
                     var tags = TAGS_List[c];
-                    console.log(tags)
                     $t.parent().parent().find('.links').toggle();
                     var tg=$t.parent().parent().find('.tg').toggle();
                     tg.html('');
@@ -229,16 +201,6 @@ body {
                         tg.append('<span data-weight="'+tags[j+1]/10+'">'+tags[j]+'</span>')
                     };
                     tg.awesomeCloud( TagSettings );
-
-                    // var postdata = "appkey=437c5088a88bbf2a3e1ffc15abb469a2&base64=true";
-                    // for (var j = 1; j  < tags.length; j+=2) {
-                    //     postdata+='&words='+tags[j];
-                    //     postdata+='&weight='+tags[j+1];
-                    // };
-                    // $.post('http://115.28.18.88/api/TagCloud', postdata, function(result){
-                    //     var img = '<img style="width:100%" src="data:image/png;base64,' + result + '" />';
-                    //     console.log(img);
-                    // })
                 }
             })
         });
