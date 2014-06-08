@@ -101,6 +101,8 @@ std::string GetBundleTitlesByDate(
     log_info("database done");
     log_info("%d\n", titleSet.size());
 
+    if(titleSet.empty())
+        return "";
     
     std::wstring_convert<std::codecvt_utf8<char32_t>,char32_t> cv;
 
