@@ -86,6 +86,7 @@ std::vector<titlebundle> trackerCluster::trackFocus(const std::vector<title> &ti
             double best = -1;
             int bestId = -1;
             for (int j = 0; j < clusterNum; j++) {
+                if (cluster[j].size() > 2 * n / clusterNum) continue;
                 double now = cosSimilarity(titlesSegment[ cluster[j][0] ], tfidf[ cluster[j][0] ],
                                            titlesSegment[i], tfidf[i]);
                 if (now > best) {
