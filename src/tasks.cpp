@@ -124,6 +124,6 @@ std::string GetBundleTitlesByDate(
         os << "===================" << std::endl;
     }
     log_info("tracker done");
-
+    
     return os.str();
 }

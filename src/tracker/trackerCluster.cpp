@@ -116,17 +116,18 @@ std::vector<titlebundle> trackerCluster::trackFocus(const std::vector<title> &ti
         for (auto ii = wordCount.begin(); ii != wordCount.end(); ii++)
             countSort.push_back(std::make_pair(ii->second, ii->first));
         std::sort(countSort.rbegin(), countSort.rend());
-        auto mx = countSort.begin().first;
+        auto mx = countSort.begin()->first;
         for (auto ii = countSort.begin(); ii != countSort.end(); ii ++)
-            if (mx = 0)
+            if (mx == 0)
                 ii->first = 1000;
             else
                 ii->first = ii->first / mx * 1000;;
         for (int t = 0; t < countSort.size(); t++) {
             ret[i].addTags(countSort[t].second);
             std::ostringstream os;
-            os << (int) ii->first;
-            ret[i].addTags(os.str());
+            os << (int) countSort[t].first;
+            std::wstring_convert<std::codecvt_utf8<char32_t>,char32_t> cv;
+            ret[i].addTags(cv.from_bytes(os.str()));
         }
     }
     std::sort(ret.rbegin(), ret.rend(),
