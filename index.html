@@ -6,10 +6,12 @@
     <meta charset="utf-8">
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="http://indyarmy.com/awesomeCloud/jquery.awesomeCloud-0.2.min.js"></script>
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script>
+    TAGS_List = []
     function showCustomer()
     {
         var SendData = "";
@@ -20,10 +22,12 @@
             for (var i = 0; i < arr.length; i++) {
                 if (arr[i].search(/TAGS:/) == 0) {
                     if (countblock % 3 == 0) Backdata += "<div class=\"row Dmargin\">" 
-                    Backdata += "<div class=\"col-6 col-sm-6 col-lg-4\" data-num=\"" + countblock + "\">";          //div of block, switch links and image
-                    Backdata += "<div><a class=\"btn btn-default\" href=\"#\" role=\"button\">View Tags</a></div>"  //div of button
-                    var tags = arr[i].substr(5).split(" ");                                                         //tag and value, one by one
-                    Backdata += "<div>";                                                                            //div of links
+                    Backdata += "<div class=\"col-6 col-sm-6 col-lg-4\" >";          //div of block, switch links and image
+                    Backdata += "<div><a class=\"btn btn-default\" href=\"#\" data-num=\"" + countblock + "\" role=\"button\">View Tags</a></div>"  //div of button
+                    var tags = arr[i].substr(5).split(" ");
+                    TAGS_List[countblock] = tags;                                                         //tag and value, one by one
+                    Backdata += "<div class=\"tg\" id=\"tg_"+countblock+"\"></div>"
+                    Backdata += "<div class=\"links\">";                                                                            //div of links
                 } else if (arr[i][0] == '=') {
                     Backdata += "</div>"
                     Backdata += "</div>" 
@@ -157,7 +161,11 @@ body {
         border-bottom: 0;
     }
 }
-
+.tg{
+    display: none;
+    width: 300px;
+    height: 300px;
+}
 </style>
 
 <body>
@@ -183,16 +191,56 @@ body {
         <div id="show">
         </div>
         <script>
-        $(function(){
-            $(".flip").click(function(){
-                $(".panel").fadeToggle(1000);
-            });
-        });
+        // $(function(){
+        //     $(".flip").click(function(){
+        //         $(".panel").fadeToggle(1000);
+        //     });
+        // });
+        var TagSettings={
+          "size" : {
+            "grid" : 8,
+            "factor" : 1
+            // "normalize" : false
+          },
+          "options" : {
+            "color" : "random-dark",
+            "rotationRatio" : 0,
+            // "printMultiplier" : 1,
+            "sort" : "random"
+          },
+          "font" : "'Times New Roman', Times, serif",
+          "shape" : "circle"
+        };
         $(function(){
             $('#form1').submit(function(){
                 showCustomer();
                 return false;
             });
+            $('#show').click(function(e){
+                var $t = $(e.target);
+                if($t.is('.btn')){
+                    var c = $t.data('num');
+                    var tags = TAGS_List[c];
+                    console.log(tags)
+                    $t.parent().parent().find('.links').toggle();
+                    var tg=$t.parent().parent().find('.tg').toggle();
+                    tg.html('');
+                    for (var j = 1; j  < tags.length; j+=2) {
+                        tg.append('<span data-weight="'+tags[j+1]/10+'">'+tags[j]+'</span>')
+                    };
+                    tg.awesomeCloud( TagSettings );
+
+                    // var postdata = "appkey=437c5088a88bbf2a3e1ffc15abb469a2&base64=true";
+                    // for (var j = 1; j  < tags.length; j+=2) {
+                    //     postdata+='&words='+tags[j];
+                    //     postdata+='&weight='+tags[j+1];
+                    // };
+                    // $.post('http://115.28.18.88/api/TagCloud', postdata, function(result){
+                    //     var img = '<img style="width:100%" src="data:image/png;base64,' + result + '" />';
+                    //     console.log(img);
+                    // })
+                }
+            })
         });
         </script>
     </div>
