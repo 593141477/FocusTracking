@@ -99,6 +99,7 @@ std::string GetBundleTitlesByDate(
     appendTitleSet(titleSet, storage->FindResultByDate(start, end));
     delete storage;
     log_info("database done");
+    log_info("%d\n", titleSet.size());
 
     
     std::vector<titlebundle> bundle = gMytracker->trackFocus(titleSet);

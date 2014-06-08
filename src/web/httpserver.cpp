@@ -76,6 +76,7 @@ std::chrono::system_clock::time_point date_string_to_time_point(const string &s)
 
 string get_info(const char *todo, size_t len)
 {
+    using namespace std::chrono;
     string first, second(todo, len);
     first = second.substr(0, second.find('+'));
     second = second.substr(second.find('+') + 1);
@@ -89,7 +90,7 @@ string get_info(const char *todo, size_t len)
     // std::time_t tt = std::chrono::system_clock::to_time_t(t);
     // std::cout << std::ctime(&tt) << std::endl;
 
-    return GetBundleTitlesByDate(s, t);
+    return GetBundleTitlesByDate(system_clock::now()-hours(48), system_clock::now());
 }
 
 static int answer_to_connection (void *cls, struct MHD_Connection *connection,

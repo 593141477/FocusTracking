@@ -1,81 +1,201 @@
 <!DOCTYPE HTML>
 <html>
+
+
 <head>
-<meta charset="utf-8">
-<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <meta charset="utf-8">
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script>
-function showCustomer()
-{
-  var SendData = "";
-  SendData=$("#user_first_date").val()+"+"+$("#user_second_date").val();
-$.post('/api/get', SendData, function(data){
-	var Backdata= "",temp=data;
-	for(var i=temp.search(/TAGS:/);i>=0;i=temp.search(/TAGS:/))
-	{
-		//var i=temp.search(/TAGS:/)
-		Backdata+=temp.substr(0,i);
-		temp=temp.substr(i);
-		var j=temp.search(/\n/);
-		Backdata+="<p class=\"flip\"> 关键词，点击显示或隐藏</p><p class=\"panel\" style=\"display: none;\">"+temp.substr(0,j)+"</p>"
-		temp=temp.substr(j+1);
-	}
-	Backdata+=temp;
-	temp=Backdata;
-	Backdata="";
-	for(var i=temp.search(/http:/);i>=0;i=temp.search(/http:/))
-	{
-		Backdata+=temp.substr(0,i);
-		temp=temp.substr(i);
-		var j=temp.search(/\n/);
-		Backdata+="<a href=\""+temp.substr(0,j-1)+"\" class=\"font1\" target=\"_blank\">";
-		temp=temp.substr(j+1);
-		j=temp.search(/\n/);
-		Backdata+=temp.substr(0,j-1)+"</a><br>";
-		temp=temp.substr(j+1);
-	}
-	Backdata+=temp;
-	Backdata=Backdata.replace(/\n/g,"<br>");
-	document.getElementById('show').innerHTML=Backdata;
-	console.log(Backdata);
-});
-}
-</script>
-<title>大翔爷、磊富帅教我写大作业——一个逗比的自白</title>
+    <script>
+    function showCustomer()
+    {
+        var SendData = "";
+        SendData=$("#user_first_date").val()+"+"+$("#user_second_date").val();
+        $.post('/api/get', SendData, function(data){
+            var Backdata= "",arr=data.split("\n");
+            var countblock = 0;
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].search(/TAGS:/) == 0) {
+                    if (countblock % 3 == 0) Backdata += "<div class=\"row Dmargin\">" 
+                    Backdata += "<div class=\"col-6 col-sm-6 col-lg-4\" data-num=\"" + countblock + "\">";          //div of block, switch links and image
+                    Backdata += "<div><a class=\"btn btn-default\" href=\"#\" role=\"button\">View Tags</a></div>"  //div of button
+                    var tags = arr[i].substr(5).split(" ");                                                         //tag and value, one by one
+                    Backdata += "<div>";                                                                            //div of links
+                } else if (arr[i][0] == '=') {
+                    Backdata += "</div>"
+                    Backdata += "</div>" 
+                    countblock ++;
+                    if (countblock % 3 == 0) Backdata += "</div>"
+                } else {
+                    var j = i + 1;
+                    if (j >= arr.length) continue;
+                    Backdata += "<div> <a href=\"" + arr[i] + "\" >" + arr[j] + "</a> </div>"
+                    i++;
+                }
+            }
+            /*
+            for(var i=temp.search(/TAGS:/);i>=0;i=temp.search(/TAGS:/))
+            {
+                //var i=temp.search(/TAGS:/)
+                Backdata+= "<div class=\"col-6 col-sm-6 col-lg-4\">" + temp.substr(0,i);
+                temp=temp.substr(i);
+                var j=temp.search(/\n/);
+                Backdata+="<p class=\"flip\"> 关键词，点击显示或隐藏</p><p class=\"panel\" style=\"display: none;\">"+temp.substr(0,j)+"</p>"
+                temp=temp.substr(j+1);
+                Backdata+="</div>";
+            }
+            Backdata+="<div class=\"col-6 col-sm-6 col-lg-4\">" + temp + "</div>";
+            temp=Backdata;
+            Backdata="";
+            for(var i=temp.search(/http:/);i>=0;i=temp.search(/http:/))
+            {
+                Backdata+=temp.substr(0,i);
+                temp=temp.substr(i);
+                var j=temp.search(/\n/);
+                Backdata+="<a href=\""+temp.substr(0,j-1)+"\" class=\"font1\" target=\"_blank\">";
+                temp=temp.substr(j+1);
+                j=temp.search(/\n/);
+                Backdata+=temp.substr(0,j-1)+"</a><br>";
+                temp=temp.substr(j+1);
+            }
+            Backdata+=temp;
+            Backdata=Backdata.replace(/\n/g,"<br>");
+            */
+            
+            document.getElementById('show').innerHTML=Backdata;
+            console.log(Backdata);
+        });
+    }
+    </script>
+    <title>大翔爷、磊富帅教我写大作业——一个逗比的自白</title>
 </head>
-<style type="text/css">
-body {color:red;text-align: center;background-color: rgb(170,228,232);}
-h1 {color:rgb(54,54,54);text-align: center;}
-a.font1{font-size: 15}
-a.font1:link {color: #ff0000}
-a.font1:visited {color: #0000ff}
-a.font1:hover {color: #ffcc00}
-div.back{color:black;line-height: 150%}
-p.flip{color:yellow;}
-p.panel{color:black;}
-</style>
-<body>
-<h1 class="center">热门网站热点事件</h1>
 
-<form  id="form1">
-起始日期: <input type="date" id="user_first_date" />
-结束日期: <input type="date" id="user_second_date" />
-<input type="submit" value="确定"/>
-</form>
-<div id="show" class="back">
-</div>
-<script>
-$(function(){
-	$(".flip").click(function(){
-		$(".panel").fadeToggle(1000);
-	});
-});
-$(function(){
-	$('#form1').submit(function(){
-		showCustomer();
-		return false;
-	});
-});
-</script>
+<style>
+/* Space out content a bit */
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* Custom page header */
+.header {
+    border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+    padding-bottom: 19px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+}
+
+/* Custom page footer */
+.footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1024px;
+    }
+}
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+    padding: 14px 24px;
+    font-size: 21px;
+}
+
+/* Supporting marketing content */
+.marketing {
+    margin: 40px 0;
+}
+.marketing p + h4 {
+    margin-top: 28px;
+}
+
+.Dmargin {
+    margin-bottom: 40px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
+}
+
+</style>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <ul class="nav nav-pills pull-right">
+                <li>        
+                    <form class="form-inline" role="form" id="form1">
+                        <div class="form-group">
+                            <label class="sr-only" for="user_first_date"> From </label>
+                            <input type="date" class="form-control" id="user_first_date" placeholder="开始日期">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="user_second_date"> To </label>
+                            <input type="date" class="form-control" id="user_second_date" placeholder="结束日期">
+                        </div>
+                        <button type="submit" class="btn btn-primary">GO</button>
+                    </form>
+                </li>
+            </ul>
+            <h3 class="text-muted">热门网站热点事件</h3>
+        </div>
+        <div id="show">
+        </div>
+        <script>
+        $(function(){
+            $(".flip").click(function(){
+                $(".panel").fadeToggle(1000);
+            });
+        });
+        $(function(){
+            $('#form1').submit(function(){
+                showCustomer();
+                return false;
+            });
+        });
+        </script>
+    </div>
 </body>
+
 </html>
