@@ -43,7 +43,7 @@
 \tableofcontents
 \newpage
 \section{需求分析}
-目前新闻网站内部的新闻有比较好的分类，可以比较容易的收集关于同一个事件的相关新闻。但是收集不同门户网站的相关新闻就显得比较困难。但是用户希望得到多个网站相关的新闻信息。所以将门户网站的新闻进行聚类整理就显得十分重要。
+目前新闻网站内部的新闻有比较好的分类，可以比较容易的收集关于同一个事件的相关新闻。但是收集不同门户网站的相关新闻就显得比较困难。而用户希望得到多个网站相关的新闻信息。所以将门户网站的新闻进行聚类整理就显得十分重要。
 
 同时，如果不同门户网站同时出现了相关新闻，也能反映出当前社会的热点。对门户网站新闻进行聚类也有利于社会热点的研究，如果有大量历史数据的数据库，则在社会研究上也有较好的附加效益。
 
@@ -66,7 +66,16 @@
 %=======================subsection end===========================
 
 \subsection{核心算法}
+核心算法部分涉及include/tracker/和src/tracker/目录下的所有文件。为了方便中文处理，核心算法部分全部使用C++11中的u32string。
+\begin{itemize}
+\item title.h 声明了标题类title和聚类标题集titlebundle，用于与外部通信。
+\item tracker.h 声明了聚类器的基类tracker，其中trackFocus的纯虚函数以vector<title>作为输入，以vector<titlebundle>作为输出。
+\item trackerForce.h, trackerForce.cpp 声明并定义了一个基于单个字的聚类器trackerForce，继承自tracker。
+\item trackerCluster.h, trackerCluster.cpp 声明并定义了一个基于分词和K-means算法的分类器trackerCluster，继承自tracker。
+\item trie.h 声明并定义了一个字典树的模板trie，trie<u32string>在trackerCluster中被使用。
+\item segment.h segment.cpp 声明并定义了一个基于双向最大匹配的分词算法，在trackerCluster中被使用，输入是u32string，输出是vector<u32string>。
 
+\end{itemize}
 %=======================subsection end===========================
 
 \subsection{用户交互}
