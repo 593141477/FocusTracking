@@ -11,7 +11,11 @@ Than just make:
 
     make
     
+Unzip `model.7z` to `bin` folder.
+    
 ##Run
 
 	cd bin
 	./focus
+	
+Open `http://localhost:8888/` to view result.

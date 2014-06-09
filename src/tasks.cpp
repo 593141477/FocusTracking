@@ -72,6 +72,7 @@ void StartTasks()
     std::thread crawlingTask(doCrawlingTasks);
 
     log_info("Tasks started successfully.");
+    log_info("Please open http://localhost:8888/ to view result.");
 
     crawlingTask.join();
 }
