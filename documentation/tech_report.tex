@@ -13,8 +13,8 @@
 %页眉页脚
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\lhead{项目进展报告}
-\rhead{Project Progress Report}
+\lhead{项目技术报告}
+\rhead{Technical Report}
 
 %设置字体
 \usepackage[no-math]{fontspec}
@@ -58,10 +58,44 @@
 \end{itemize}
 
 \subsection{网页抓取}
+本部分集成了html和json解析,能够适应大部分的web页面和ajax请求数据解析,尽可能多的支持各个新闻网站.
+所有Spider继承自SpiderBase,并可选继承GumboBasedSpider或JsonBasedSpider以获取HTML及JSON解析功能.
 
+主要类的设计如下:
+
+\begin{itemize}
+\item SpiderBase\\
+所有Spider的基类,提供网页抓取的基础功能(如HTTP请求,编码转换)
+
+\item GumboBasedSpider\\
+提供基于第三方库gumbo的html dom树解析,类中声明了两个纯虚的回调函数,留给子类实现,以适应不同网站的不同网页结构.
+其中searchNodeCallback在递归遍历dom节点时调用,由子类判断节点是否有用,是否需要深入遍历;resultCallback在遍历先前存储的节点时,有子类进一步过滤出需要保留的信息.
+
+\item JsonBasedSpider\\
+提供对于json格式数据的解析,基于第三方库JSON++.
+
+\item SpiderFor163,SpiderForQQ,SpiderForSina\\
+具体Spider实现,提供对于相应门户网站新闻主页的抓取
+
+\item SpiderFor163,SpiderForSinaRoll,SpiderForQQRoll\\
+具体Spider实现,提供对于相应门户网站滚动新闻的抓取
+
+\end{itemize}
 %=======================subsection end===========================
 
 \subsection{数据存储}
+
+为了提供历史新闻跟踪分析功能,需要存储历史抓取数据,因此设计了数据存储部分.为了快速查找,这部分使用数据库作为后端存储.目前选用的轻量级的关系型数据库sqlite.
+
+主要类的设计如下:
+
+\begin{itemize}
+\item StorageBase\\
+提供与数据库引擎无关的数据操作接口,使主程序与数据库解耦.目前,仅实现了插入和按日期查找的接口.
+
+\item SqliteDatabaseStorage\\
+继承自StorageBase,实现接口数据类型向sqlite数据库的类型转换,以及sql语句构造等功能.
+\end{itemize}
 
 %=======================subsection end===========================
 
@@ -80,31 +114,43 @@
 
 \subsection{用户交互}
 
+UI部分采用HTML+JS方式开发,并在程序中使用libmicrohttpd提供内置http服务器.
+
+前端采用jQuery框架,并使用jquery.awesomeCloud插件显示词云.
+
 %=======================subsection end===========================
 
 \section{目录结构}
 \noindent
-├── 3rdparty\\
+├── 3rdparty   第三方库目录\\
 │\verb|   |├── JSON++\\
 │\verb|   |└── gumbo-parser\\
-├── bin\\
-├── documentation\\
-├── include\\
+├── bin   目标文件\\
+├── documentation  文档目录\\
+├── include  所有头文件\\
 │\verb|   |├── spider\\
 │\verb|   |├── storage\\
 │\verb|   |├── tracker\\
 │\verb|   |└── web\\
-├── scripts\\
-├── src\\
-│\verb|   |├── spider\\
-│\verb|   |├── storage\\
-│\verb|   |├── tracker\\
-│\verb|   |└── web\\
-├── testdata\\
-└── tests\\
+├── scripts  工具脚本\\
+├── src  源码目录\\
+│\verb|   |├── spider  爬虫部分\\
+│\verb|   |├── storage   存储部分\\
+│\verb|   |├── tracker  核心算法\\
+│\verb|   |└── web  网页服务器\\
+├── testdata  算法测试数据\\
+└── tests  单元测试程序\\
 
 
 \section{编译方法}
+
+在Mac OS X系统下,安装如下依赖包: 
+
+brew install curl libmicrohttpd pcre sqlite cmake autoconf automake bison flex libtool pkg-config\\
+
+进入顶层目录编译:
+
+make
 
 %=======================section    end===========================
 
