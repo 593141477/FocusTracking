@@ -1,0 +1,71 @@
+\documentclass[12pt]{article}
+
+%设置页边距
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+%地址链接支持
+\usepackage{hyperref}
+
+%支持分栏
+\usepackage{multicol}
+
+%页眉页脚
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{项目进展报告}
+\rhead{Project Progress Report}
+
+%设置字体
+\usepackage[no-math]{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\setmainfont[AutoFakeSlant]{Hiragino Sans GB W3}
+
+%设置换行缩进
+\usepackage[indentfirst=false,slantfont,boldfont]{xeCJK}
+\usepackage{indentfirst}
+\setlength{\parindent}{0.9cm}
+
+%行距
+\linespread{1.2}
+
+\begin{document}
+
+\title{技术报告：\\[3ex] 基于主页标题文字的\\热点新闻跟踪与分析、可视化展示\\[3ex]}
+
+\author{开发小组}
+
+\date{2014年6月}
+\maketitle
+\newpage
+\renewcommand{\contentsname}{技术报告}
+\tableofcontents
+\newpage
+\section{需求分析}
+目前新闻网站内部的新闻有比较好的分类，可以比较容易的收集关于同一个事件的相关新闻。但是收集不同门户网站的相关新闻就显得比较困难。但是用户希望得到多个网站相关的新闻信息。所以将门户网站的新闻进行聚类整理就显得十分重要。
+
+同时，如果不同门户网站同时出现了相关新闻，也能反映出当前社会的热点。对门户网站新闻进行聚类也有利于社会热点的研究，如果有大量历史数据的数据库，则在社会研究上也有较好的附加效益。
+
+\section{模块介绍}
+实现这些功能需要的步骤如下：
+\begin{itemize}
+\item 从各种门户网站抓取标题数据
+\item 在数据库存储有关数据
+\item 用户提交查询的需求
+\item 算法对相关标题数据进行聚类
+\item 将结果在界面上展示
+\end{itemize}
+
+\subsection{网页抓取}
+
+\subsection{数据存储}
+
+\subsection{核心算法}
+
+\subsection{用户交互}
+
+
+\section{编译方法}
+
+\end{document}
