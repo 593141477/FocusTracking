@@ -11,7 +11,10 @@ Than just make:
 
     make
     
-Unzip `model.7z` to `bin` folder.
+Unzip `model.7z` to `bin` folder.  
+Initialize database:
+
+	sqlite3 bin/crawling.db <scripts/init.sql
     
 ##Run
 
@@ -19,3 +22,13 @@ Unzip `model.7z` to `bin` folder.
 	./focus
 	
 Open `http://localhost:8888/` to view result.
+
+##Documentation
+
+Technical Report: `documentation/tech_report.pdf`
+
+User Manual: `documentation/user_manual.pdf`
+
+Middle Report: `documentation/mid_report.pdf`
+
+Final Report (Keynote): `documentation/final_report.key`
