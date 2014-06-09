@@ -110,7 +110,7 @@ static int answer_to_connection (void *cls, struct MHD_Connection *connection,
         return MHD_YES;
     }
     if (0 == strcmp (method, "GET")) {
-        ifstream fin("index.html");
+        ifstream fin("webroot/index.html");
         string s = "", ss;
         while (getline(fin, ss)) {
             s += ss + "\n";
