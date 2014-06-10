@@ -11,6 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script>
+    function htmlEncode(value){
+      //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+      //then grab the encoded contents back out.  The div never exists on the page.
+      return $('<div/>').text(value).html();
+    }
     TAGS_List = []
     function showCustomer()
     {
@@ -38,7 +43,7 @@
                 } else {
                     var j = i + 1;
                     if (j >= arr.length) continue;
-                    Backdata += "<div> <a href=\"" + arr[i] + "\" >" + arr[j] + "</a> </div>"
+                    Backdata += "<div> <a href=\"" + htmlEncode(arr[i]) + "\" >" + htmlEncode(arr[j]) + "</a> </div>"
                     i++;
                 }
             }
@@ -199,7 +204,7 @@ body {
                     var tg=$t.parent().parent().find('.tg').toggle();
                     tg.html('');
                     for (var j = 1; j  < tags.length; j+=2) {
-                        tg.append('<span data-weight="'+tags[j+1]/10+'">'+tags[j]+'</span>')
+                        tg.append('<span data-weight="'+tags[j+1]/10+'">'+htmlEncode(tags[j])+'</span>')
                     };
                     tg.awesomeCloud( TagSettings );
                 }

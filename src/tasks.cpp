@@ -88,6 +88,12 @@ static void appendTitleSet(std::vector<title> &s, const CrawlingResult &res)
     }
 }
 
+static std::string filterIllegalChars(std::string str)
+{
+    str.erase (std::remove(str.begin(), str.end(), '\n'), str.end());
+    return str;
+}
+
 std::string GetBundleTitlesByDate(
     std::chrono::system_clock::time_point start,
     std::chrono::system_clock::time_point end)
@@ -116,12 +122,12 @@ std::string GetBundleTitlesByDate(
         const std::vector<std::u32string> tags = ii->getTags();
         os << "TAGS: ";
         for (auto jj = tags.begin(); jj != tags.end(); jj++)
-            os << cv.to_bytes(*jj) << " ";
+            os << filterIllegalChars(cv.to_bytes(*jj)) << " ";
         os << std::endl;
         const std::vector<title> titles = ii->getTitles();
         for (std::vector<title>::const_iterator jj = titles.cbegin(); jj != titles.cend(); jj++) {
-            os << (jj->url) << std::endl;;
-            os << cv.to_bytes(jj->name) << std::endl;;
+            os << filterIllegalChars(jj->url) << std::endl;
+            os << filterIllegalChars(cv.to_bytes(jj->name)) << std::endl;
         }
         os << "===================" << std::endl;
     }
